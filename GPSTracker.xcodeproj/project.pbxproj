@@ -22,6 +22,7 @@
 		C730909CEC400F7A7118063F /* TrackStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A8E16DE222F12954C5F9C0 /* TrackStore.swift */; };
 		CB93A28F18004D33554EA6BD /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B65058112A8EF436E1CC /* TrackPoint.swift */; };
 		F22F1F8625936F1A63A2DE9F /* TrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1034EAC4C09461E9AE945CE /* TrackMapView.swift */; };
+		A1B2C3D4E5F60718293A4B5C /* RecordingIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		DA1D4596F45E0340C7B9D7E4 /* SavedTracksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTracksView.swift; sourceTree = "<group>"; };
 		F49933B2A32D31EFCFB077CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIntents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		A1B2C3D4E5F60718293A4B5E /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */,
+			);
+			path = Intents;
+			sourceTree = "<group>";
+		};
 		CE882751F8B3EE4485706ED4 /* GPSTracker */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +112,7 @@
 				F49933B2A32D31EFCFB077CA /* ContentView.swift */,
 				E7651EE138212D3A5C27ABA0 /* Models */,
 				B295F7D1F3A53E369290BC6A /* Services */,
+				A1B2C3D4E5F60718293A4B5E /* Intents */,
 				9CECDDFA5EF2AE0232F90708 /* Views */,
 				FCB8953AE57039F8C975994A /* Assets.xcassets */,
 				D1D74ED74759DFE7FCFB113A /* Info.plist */,
@@ -201,6 +212,7 @@
 				3EB6B85C6DD18810AC63A680 /* LiveTrackingView.swift in Sources */,
 				7A7DBC156F29E8D5700FEF70 /* SavedTracksView.swift in Sources */,
 				6C4A8DFD624804137B75239F /* TrackDetailView.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* RecordingIntents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

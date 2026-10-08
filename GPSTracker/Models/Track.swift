@@ -16,6 +16,15 @@ struct Track: Codable, Identifiable, Hashable {
         self.endDate = endDate
     }
 
+    /// Name for a new recording, e.g. "Strecke 08.10.2026, 05:42".
+    static func defaultName(for date: Date = Date()) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.locale = Locale(identifier: "de_DE")
+        return "Strecke \(formatter.string(from: date))"
+    }
+
     var duration: TimeInterval {
         guard let endDate else { return Date().timeIntervalSince(startDate) }
         return endDate.timeIntervalSince(startDate)

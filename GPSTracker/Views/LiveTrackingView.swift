@@ -43,6 +43,8 @@ struct LiveTrackingView: View {
             .alert("Strecke speichern", isPresented: $showNamePrompt) {
                 TextField("Name", text: $trackName)
                 Button("Speichern") {
+                    // A shortcut may have stopped and saved the recording meanwhile.
+                    guard locationManager.isRecording else { return }
                     var track = locationManager.stopRecording()
                     track.name = trackName.isEmpty ? defaultName() : trackName
                     trackStore.save(track)
@@ -116,10 +118,6 @@ struct LiveTrackingView: View {
     }
 
     private func defaultName() -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        formatter.locale = Locale(identifier: "de_DE")
-        return "Strecke \(formatter.string(from: Date()))"
+        Track.defaultName()
     }
 }
