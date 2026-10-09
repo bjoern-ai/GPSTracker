@@ -23,6 +23,7 @@
 		CB93A28F18004D33554EA6BD /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B65058112A8EF436E1CC /* TrackPoint.swift */; };
 		F22F1F8625936F1A63A2DE9F /* TrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1034EAC4C09461E9AE945CE /* TrackMapView.swift */; };
 		A1B2C3D4E5F60718293A4B5C /* RecordingIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */; };
+		B7E1A0C2D3F4051627384951 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B7E1A0C2D3F4051627384950 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		F49933B2A32D31EFCFB077CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIntents.swift; sourceTree = "<group>"; };
+		B7E1A0C2D3F4051627384950 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				9CECDDFA5EF2AE0232F90708 /* Views */,
 				FCB8953AE57039F8C975994A /* Assets.xcassets */,
 				D1D74ED74759DFE7FCFB113A /* Info.plist */,
+				B7E1A0C2D3F4051627384950 /* PrivacyInfo.xcprivacy */,
 			);
 			path = GPSTracker;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8875112C0BBF57B4D1A26581 /* Assets.xcassets in Resources */,
+				B7E1A0C2D3F4051627384951 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +243,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -263,7 +267,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
