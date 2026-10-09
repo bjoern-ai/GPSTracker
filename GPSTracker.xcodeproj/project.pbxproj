@@ -18,12 +18,12 @@
 		7A7DBC156F29E8D5700FEF70 /* SavedTracksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D4596F45E0340C7B9D7E4 /* SavedTracksView.swift */; };
 		8875112C0BBF57B4D1A26581 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB8953AE57039F8C975994A /* Assets.xcassets */; };
 		8C9155BE6CFAC86E5231C0A3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49933B2A32D31EFCFB077CA /* ContentView.swift */; };
+		A1B2C3D4E5F60718293A4B5C /* RecordingIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */; };
+		B7E1A0C2D3F4051627384951 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B7E1A0C2D3F4051627384950 /* PrivacyInfo.xcprivacy */; };
 		B917C7BF2110E1550F4CA5F3 /* GPXExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1C74544A27127C9C26DD54 /* GPXExporter.swift */; };
 		C730909CEC400F7A7118063F /* TrackStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A8E16DE222F12954C5F9C0 /* TrackStore.swift */; };
 		CB93A28F18004D33554EA6BD /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B65058112A8EF436E1CC /* TrackPoint.swift */; };
 		F22F1F8625936F1A63A2DE9F /* TrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1034EAC4C09461E9AE945CE /* TrackMapView.swift */; };
-		A1B2C3D4E5F60718293A4B5C /* RecordingIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */; };
-		B7E1A0C2D3F4051627384951 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B7E1A0C2D3F4051627384950 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +36,9 @@
 		3ED9B65058112A8EF436E1CC /* TrackPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPoint.swift; sourceTree = "<group>"; };
 		5991E839E42CFA1C7566539E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		A0A8E16DE222F12954C5F9C0 /* TrackStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStore.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIntents.swift; sourceTree = "<group>"; };
 		A3661A396C1E6F43E1304F85 /* GPSTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPSTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7E1A0C2D3F4051627384950 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B80430BD0A566DBDFF176629 /* StatsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsGridView.swift; sourceTree = "<group>"; };
 		C1034EAC4C09461E9AE945CE /* TrackMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMapView.swift; sourceTree = "<group>"; };
 		C5963033D59C0639BFFE1921 /* TrackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailView.swift; sourceTree = "<group>"; };
@@ -44,8 +46,6 @@
 		DA1D4596F45E0340C7B9D7E4 /* SavedTracksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTracksView.swift; sourceTree = "<group>"; };
 		F49933B2A32D31EFCFB077CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIntents.swift; sourceTree = "<group>"; };
-		B7E1A0C2D3F4051627384950 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +89,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		A1B2C3D4E5F60718293A4B5E /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */,
+			);
+			path = Intents;
+			sourceTree = "<group>";
+		};
 		B295F7D1F3A53E369290BC6A /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,14 +105,6 @@
 				2D1C74544A27127C9C26DD54 /* GPXExporter.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		A1B2C3D4E5F60718293A4B5E /* Intents */ = {
-			isa = PBXGroup;
-			children = (
-				A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */,
-			);
-			path = Intents;
 			sourceTree = "<group>";
 		};
 		CE882751F8B3EE4485706ED4 /* GPSTracker */ = {
@@ -230,6 +230,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = P2M7JR3228;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = GPSTracker/Info.plist;
