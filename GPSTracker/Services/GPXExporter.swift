@@ -6,7 +6,7 @@ struct GPXExporter {
         let isoFormatter = ISO8601DateFormatter()
         var xml = """
         <?xml version="1.0" encoding="UTF-8"?>
-        <gpx version="1.1" creator="GPSTracker" xmlns="http://www.topografix.com/GPX/1/1">
+        <gpx version="1.1" creator="Tourspur" xmlns="http://www.topografix.com/GPX/1/1">
           <metadata>
             <name>\(escape(track.name))</name>
             <time>\(isoFormatter.string(from: track.startDate))</time>

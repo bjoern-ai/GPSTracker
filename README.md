@@ -1,6 +1,6 @@
-# GPS Tracker
+# Tourspur
 
-GPS Tracker für das iPhone: Strecken live aufzeichnen, als GPX exportieren, über iCloud Drive synchronisieren und per Siri starten.
+Tourspur für das iPhone: Strecken live aufzeichnen, als GPX exportieren, über iCloud Drive synchronisieren und per Siri starten.
 
 ## Funktionen
 
@@ -44,4 +44,4 @@ Fehlerberichte und Pull Requests sind willkommen. Die Oberfläche ist auf Deutsc
 
 Der Quellcode steht unter der [MIT-Lizenz](LICENSE).
 
-Name „GPS Tracker“ und App-Icon sind davon ausgenommen: Wer eine eigene Version veröffentlicht, z. B. im App Store, verwendet bitte einen anderen Namen und ein eigenes Icon.
+Name „Tourspur“ und App-Icon sind davon ausgenommen: Wer eine eigene Version veröffentlicht, z. B. im App Store, verwendet bitte einen anderen Namen und ein eigenes Icon.
