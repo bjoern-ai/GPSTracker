@@ -28,7 +28,34 @@ final class LocationManager: NSObject, ObservableObject {
         manager.distanceFilter = 2
         manager.activityType = .fitness
         manager.pausesLocationUpdatesAutomatically = false
+        #if DEBUG
+        loadScreenshotDemoIfRequested()
+        #endif
     }
+
+    #if DEBUG
+    private var isScreenshotDemo = false
+
+    /// Screenshot helper: launching with `-ScreenshotDemoLive <file>` shows the
+    /// track in Documents/<file> as a running recording and ignores real updates.
+    private func loadScreenshotDemoIfRequested() {
+        guard let file = UserDefaults.standard.string(forKey: "ScreenshotDemoLive") else { return }
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(file)
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        guard let data = try? Data(contentsOf: url),
+              var track = try? decoder.decode(Track.self, from: data),
+              let first = track.points.first, let last = track.points.last else { return }
+        track.startDate = Date().addingTimeInterval(-last.timestamp.timeIntervalSince(first.timestamp))
+        track.endDate = nil
+        currentTrack = track
+        currentSpeed = last.speed
+        currentAltitude = last.altitude
+        horizontalAccuracy = last.horizontalAccuracy
+        isRecording = true
+        isScreenshotDemo = true
+    }
+    #endif
 
     func requestPermission() {
         manager.requestWhenInUseAuthorization()
@@ -89,6 +116,9 @@ extension LocationManager: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
+        #if DEBUG
+        if isScreenshotDemo { return }
+        #endif
         DispatchQueue.main.async {
             self.currentLocation = location
             self.currentSpeed = max(location.speed, 0)
