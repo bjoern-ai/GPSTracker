@@ -201,6 +201,12 @@
 
   function init() {
     Array.prototype.forEach.call(document.querySelectorAll(".fotospur"), mount);
+    // Im WordPress-Editor wird die Vorschau nachträglich eingefügt
+    if (window.MutationObserver) {
+      new MutationObserver(function () {
+        Array.prototype.forEach.call(document.querySelectorAll(".fotospur:not([data-fs-ready])"), mount);
+      }).observe(document.documentElement, { childList: true, subtree: true });
+    }
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
