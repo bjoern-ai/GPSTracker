@@ -7,6 +7,8 @@ struct ContentView: View {
                 .tabItem { Label("Live", systemImage: "location.fill") }
             SavedTracksView()
                 .tabItem { Label("Strecken", systemImage: "list.bullet") }
+            SettingsView()
+                .tabItem { Label("Einstellungen", systemImage: "gearshape") }
         }
     }
 }

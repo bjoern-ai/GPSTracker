@@ -8,7 +8,16 @@ struct TrackDetailView: View {
         var id: URL { url }
     }
 
+    private struct PublishedPost: Identifiable {
+        let id: Int
+        let editURL: URL
+    }
+
     @State private var exportFile: ExportFile?
+    @State private var isPublishing = false
+    @State private var publishedPost: PublishedPost?
+    @State private var publishError: String?
+    @Environment(\.openURL) private var openURL
 
     var body: some View {
         ScrollView {
@@ -33,6 +42,23 @@ struct TrackDetailView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
+
+                Button {
+                    publish()
+                } label: {
+                    HStack {
+                        if isPublishing {
+                            ProgressView()
+                            Text("Wird hochgeladen …")
+                        } else {
+                            Label("Auf Website veröffentlichen", systemImage: "globe")
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .disabled(isPublishing)
+                .padding(.horizontal)
             }
             .padding(.vertical)
         }
@@ -41,6 +67,40 @@ struct TrackDetailView: View {
         .sheet(item: $exportFile) { file in
             ShareSheet(items: [file.url])
                 .presentationDetents([.medium, .large])
+        }
+        .alert("Entwurf erstellt", isPresented: Binding(
+            get: { publishedPost != nil },
+            set: { if !$0 { publishedPost = nil } }
+        ), presenting: publishedPost) { post in
+            Button("Im Editor öffnen") { openURL(post.editURL) }
+            Button("Schließen", role: .cancel) {}
+        } message: { _ in
+            Text("Die Strecke wurde als Beitragsentwurf auf der Website angelegt. Füge im WordPress-Editor Fotos hinzu und veröffentliche den Beitrag.")
+        }
+        .alert("Veröffentlichen fehlgeschlagen", isPresented: Binding(
+            get: { publishError != nil },
+            set: { if !$0 { publishError = nil } }
+        )) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(publishError ?? "")
+        }
+    }
+
+    private func publish() {
+        guard !isPublishing else { return }
+        isPublishing = true
+        Task {
+            defer { isPublishing = false }
+            do {
+                let client = try WordPressClient.fromSettings()
+                let gpx = Data(GPXExporter.gpxString(for: track).utf8)
+                let mediaId = try await client.uploadGPX(gpx, fileName: WordPressClient.uploadFileName(for: track.name))
+                let postId = try await client.createDraftPost(title: track.name, gpxId: mediaId)
+                publishedPost = PublishedPost(id: postId, editURL: client.editURL(postId: postId))
+            } catch {
+                publishError = error.localizedDescription
+            }
         }
     }
 
