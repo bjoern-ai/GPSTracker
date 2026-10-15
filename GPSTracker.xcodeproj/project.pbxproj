@@ -27,6 +27,7 @@
 		5E1F0A01B2C3D4E5F6A7B801 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B802 /* KeychainHelper.swift */; };
 		5E1F0A01B2C3D4E5F6A7B803 /* WordPressClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B804 /* WordPressClient.swift */; };
 		5E1F0A01B2C3D4E5F6A7B805 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B806 /* SettingsView.swift */; };
+		5E1F0A01B2C3D4E5F6A7B807 /* PhotoConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B808 /* PhotoConverter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		5E1F0A01B2C3D4E5F6A7B802 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		5E1F0A01B2C3D4E5F6A7B804 /* WordPressClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPressClient.swift; sourceTree = "<group>"; };
 		5E1F0A01B2C3D4E5F6A7B806 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5E1F0A01B2C3D4E5F6A7B808 /* PhotoConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				A0A8E16DE222F12954C5F9C0 /* TrackStore.swift */,
 				2D1C74544A27127C9C26DD54 /* GPXExporter.swift */,
 				5E1F0A01B2C3D4E5F6A7B804 /* WordPressClient.swift */,
+				5E1F0A01B2C3D4E5F6A7B808 /* PhotoConverter.swift */,
 				5E1F0A01B2C3D4E5F6A7B802 /* KeychainHelper.swift */,
 			);
 			path = Services;
@@ -228,6 +231,7 @@
 				A1B2C3D4E5F60718293A4B5C /* RecordingIntents.swift in Sources */,
 				5E1F0A01B2C3D4E5F6A7B805 /* SettingsView.swift in Sources */,
 				5E1F0A01B2C3D4E5F6A7B803 /* WordPressClient.swift in Sources */,
+				5E1F0A01B2C3D4E5F6A7B807 /* PhotoConverter.swift in Sources */,
 				5E1F0A01B2C3D4E5F6A7B801 /* KeychainHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

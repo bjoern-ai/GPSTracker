@@ -81,9 +81,18 @@ struct WordPressClient {
 
     /// Uploads the GPX file and returns the media attachment id.
     func uploadGPX(_ data: Data, fileName: String) async throws -> Int {
+        try await uploadMedia(data, fileName: fileName, contentType: "application/gpx+xml")
+    }
+
+    /// Uploads a JPEG photo and returns the media attachment id.
+    func uploadPhoto(_ data: Data, fileName: String) async throws -> Int {
+        try await uploadMedia(data, fileName: fileName, contentType: "image/jpeg")
+    }
+
+    private func uploadMedia(_ data: Data, fileName: String, contentType: String) async throws -> Int {
         var request = URLRequest(url: endpoint("media"))
         request.httpMethod = "POST"
-        request.setValue("application/gpx+xml", forHTTPHeaderField: "Content-Type")
+        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
         request.setValue("attachment; filename=\"\(fileName)\"", forHTTPHeaderField: "Content-Disposition")
         request.httpBody = data
         let json = try await send(request)
@@ -92,8 +101,11 @@ struct WordPressClient {
     }
 
     /// Creates a draft post containing the Fotospur block and returns the post id.
-    func createDraftPost(title: String, gpxId: Int) async throws -> Int {
-        let attributes: [String: Any] = ["gpxId": gpxId, "name": title]
+    func createDraftPost(title: String, gpxId: Int, imageIds: [Int] = []) async throws -> Int {
+        var attributes: [String: Any] = ["gpxId": gpxId, "name": title]
+        if !imageIds.isEmpty {
+            attributes["imageIds"] = imageIds
+        }
         let attributeData = try JSONSerialization.data(withJSONObject: attributes, options: [.sortedKeys, .withoutEscapingSlashes])
         // Escape characters that would break the HTML comment, like Gutenberg's serializer does.
         let attributeJSON = String(decoding: attributeData, as: UTF8.self)
@@ -117,13 +129,13 @@ struct WordPressClient {
     }
 
     /// ASCII-only file name for the Content-Disposition header, e.g. "Strecke-08102026-0542.gpx".
-    static func uploadFileName(for trackName: String) -> String {
+    static func uploadFileName(for trackName: String, fileExtension: String = "gpx") -> String {
         let folded = trackName
             .replacingOccurrences(of: "ß", with: "ss")
             .folding(options: .diacriticInsensitive, locale: Locale(identifier: "de_DE"))
         let allowed = Set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_")
         let base = String(folded.map { $0 == " " ? "-" : $0 }.filter { allowed.contains($0) })
-        return (base.isEmpty ? "Strecke" : base) + ".gpx"
+        return (base.isEmpty ? "Strecke" : base) + "." + fileExtension
     }
 
     /// URL of the WordPress editor for a post.
