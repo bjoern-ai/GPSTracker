@@ -2,8 +2,10 @@ import SwiftUI
 
 @main
 struct GPSTrackerApp: App {
-    @StateObject private var locationManager = LocationManager.shared
-    @StateObject private var trackStore = TrackStore.shared
+    // Plain references: observing them here would rebuild the whole UI on every
+    // location update, which made text input stutter. Views observe them instead.
+    private let locationManager = LocationManager.shared
+    private let trackStore = TrackStore.shared
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {

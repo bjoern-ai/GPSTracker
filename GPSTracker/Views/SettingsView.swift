@@ -1,9 +1,14 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage(WordPressClient.siteURLKey) private var siteURL = WordPressClient.defaultSiteURL
-    @AppStorage(WordPressClient.usernameKey) private var username = ""
-    @State private var password = KeychainHelper.read(account: WordPressClient.passwordAccount) ?? ""
+    // Edited locally and saved shortly after typing stops, so keystrokes never wait for the Keychain.
+    @State private var siteURL = ""
+    @State private var username = ""
+    @State private var password = ""
+    @State private var isLoaded = false
+
+    private enum Field { case siteURL, username, password }
+    @FocusState private var focusedField: Field?
 
     private enum TestState {
         case idle
@@ -23,16 +28,23 @@ struct SettingsView: View {
                         .textContentType(.URL)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                        .focused($focusedField, equals: .siteURL)
+                        .submitLabel(.next)
+                        .onSubmit { focusedField = .username }
                     TextField("Benutzername", text: $username)
                         .textContentType(.username)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                        .focused($focusedField, equals: .username)
+                        .submitLabel(.next)
+                        .onSubmit { focusedField = .password }
                     SecureField("Anwendungspasswort", text: $password)
+                        .textContentType(.password)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
-                        .onChange(of: password) { _, newValue in
-                            KeychainHelper.save(newValue, account: WordPressClient.passwordAccount)
-                        }
+                        .focused($focusedField, equals: .password)
+                        .submitLabel(.done)
+                        .onSubmit { focusedField = nil }
                 } header: {
                     Text("WordPress")
                 } footer: {
@@ -66,6 +78,34 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Einstellungen")
+            .scrollDismissesKeyboard(.interactively)
+            .onAppear(perform: load)
+            .onDisappear(perform: save)
+            .task(id: [siteURL, username, password]) {
+                guard isLoaded else { return }
+                try? await Task.sleep(for: .milliseconds(600))
+                guard !Task.isCancelled else { return }
+                save()
+            }
+        }
+    }
+
+    private func load() {
+        guard !isLoaded else { return }
+        let defaults = UserDefaults.standard
+        siteURL = defaults.string(forKey: WordPressClient.siteURLKey) ?? WordPressClient.defaultSiteURL
+        username = defaults.string(forKey: WordPressClient.usernameKey) ?? ""
+        password = KeychainHelper.read(account: WordPressClient.passwordAccount) ?? ""
+        isLoaded = true
+    }
+
+    private func save() {
+        guard isLoaded else { return }
+        let defaults = UserDefaults.standard
+        defaults.set(siteURL, forKey: WordPressClient.siteURLKey)
+        defaults.set(username, forKey: WordPressClient.usernameKey)
+        if password != KeychainHelper.read(account: WordPressClient.passwordAccount) ?? "" {
+            KeychainHelper.save(password, account: WordPressClient.passwordAccount)
         }
     }
 
@@ -75,6 +115,8 @@ struct SettingsView: View {
     }
 
     private func testConnection() {
+        focusedField = nil
+        save()
         testState = .testing
         Task {
             do {

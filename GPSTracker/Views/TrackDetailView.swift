@@ -144,7 +144,8 @@ struct TrackDetailView: View {
             defer { isPublishing = false }
             do {
                 let client = try WordPressClient.fromSettings()
-                let gpx = Data(GPXExporter.gpxString(for: track).utf8)
+                let track = track
+                let gpx = await Task.detached { Data(GPXExporter.gpxString(for: track).utf8) }.value
                 let mediaId = try await client.uploadGPX(gpx, fileName: WordPressClient.uploadFileName(for: track.name))
 
                 var imageIds: [Int] = []

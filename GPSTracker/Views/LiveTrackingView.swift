@@ -40,6 +40,10 @@ struct LiveTrackingView: View {
                 }
                 locationManager.startUpdating()
             }
+            .onDisappear {
+                // Keeps running while recording; otherwise no updates are needed off this tab.
+                locationManager.stopUpdating()
+            }
             .alert("Strecke speichern", isPresented: $showNamePrompt) {
                 TextField("Name", text: $trackName)
                 Button("Speichern") {
