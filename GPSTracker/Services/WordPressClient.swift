@@ -3,7 +3,6 @@ import Foundation
 /// Uploads tracks to a WordPress site via the REST API (application passwords),
 /// creating a draft post containing the Fotospur block.
 struct WordPressClient {
-    static let defaultSiteURL = "https://rollermomente.de"
     static let siteURLKey = "wordpressSiteURL"
     static let usernameKey = "wordpressUsername"
     static let passwordAccount = "wordpressApplicationPassword"
@@ -11,6 +10,7 @@ struct WordPressClient {
     enum WPError: LocalizedError {
         case notConfigured
         case invalidURL
+        case insecureURL
         case unauthorized
         case forbidden
         case network(String)
@@ -22,7 +22,9 @@ struct WordPressClient {
             case .notConfigured:
                 return "WordPress ist nicht eingerichtet. Bitte Website, Benutzername und Anwendungspasswort in den Einstellungen eintragen."
             case .invalidURL:
-                return "Die Website-URL ist ungültig."
+                return "Die Website-URL ist ungültig. Beispiel: https://meine-website.de"
+            case .insecureURL:
+                return "Die Website muss über https erreichbar sein, damit dein Passwort verschlüsselt übertragen wird."
             case .unauthorized:
                 return "Anmeldung fehlgeschlagen. Bitte Benutzername und Anwendungspasswort prüfen."
             case .forbidden:
@@ -47,7 +49,7 @@ struct WordPressClient {
     /// Builds a client from the stored settings.
     static func fromSettings() throws -> WordPressClient {
         let defaults = UserDefaults.standard
-        let site = (defaults.string(forKey: siteURLKey) ?? defaultSiteURL)
+        let site = (defaults.string(forKey: siteURLKey) ?? "")
             .trimmingCharacters(in: .whitespacesAndNewlines)
         let user = (defaults.string(forKey: usernameKey) ?? "")
             .trimmingCharacters(in: .whitespacesAndNewlines)
@@ -59,8 +61,16 @@ struct WordPressClient {
     init(site: String, username: String, password: String) throws {
         var site = site.trimmingCharacters(in: .whitespacesAndNewlines)
         while site.hasSuffix("/") { site.removeLast() }
-        if !site.lowercased().hasPrefix("http") { site = "https://" + site }
-        guard let url = URL(string: site), url.host != nil else { throw WPError.invalidURL }
+        // Accept pasted admin or REST URLs and keep only the site root.
+        for suffix in ["/wp-admin", "/wp-json", "/wp-login.php"] {
+            if let range = site.range(of: suffix, options: .caseInsensitive) {
+                site = String(site[..<range.lowerBound])
+            }
+        }
+        while site.hasSuffix("/") { site.removeLast() }
+        if site.lowercased().hasPrefix("http://") { throw WPError.insecureURL }
+        if !site.lowercased().hasPrefix("https://") { site = "https://" + site }
+        guard let url = URL(string: site), let host = url.host, host.contains(".") else { throw WPError.invalidURL }
         self.siteURL = url
         self.username = username
         // Application passwords are displayed with spaces; WordPress accepts them either way.

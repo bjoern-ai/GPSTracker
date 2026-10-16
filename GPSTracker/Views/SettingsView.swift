@@ -23,7 +23,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Website-URL", text: $siteURL)
+                    TextField("Website-URL", text: $siteURL, prompt: Text("https://meine-website.de"))
                         .keyboardType(.URL)
                         .textContentType(.URL)
                         .textInputAutocapitalization(.never)
@@ -48,7 +48,7 @@ struct SettingsView: View {
                 } header: {
                     Text("WordPress")
                 } footer: {
-                    Text("Das Anwendungspasswort erstellst du in WordPress unter Benutzer → Profil → Anwendungspasswörter. Es wird sicher im Schlüsselbund gespeichert.")
+                    Text("Optional: Strecken als Beitragsentwurf auf deiner eigenen WordPress-Website veröffentlichen. Dafür muss dort das Tourspur-Plugin installiert sein. Das Anwendungspasswort erstellst du in WordPress unter Benutzer → Profil → Anwendungspasswörter. Es wird sicher im Schlüsselbund gespeichert.")
                 }
 
                 Section {
@@ -93,7 +93,7 @@ struct SettingsView: View {
     private func load() {
         guard !isLoaded else { return }
         let defaults = UserDefaults.standard
-        siteURL = defaults.string(forKey: WordPressClient.siteURLKey) ?? WordPressClient.defaultSiteURL
+        siteURL = defaults.string(forKey: WordPressClient.siteURLKey) ?? ""
         username = defaults.string(forKey: WordPressClient.usernameKey) ?? ""
         password = KeychainHelper.read(account: WordPressClient.passwordAccount) ?? ""
         isLoaded = true

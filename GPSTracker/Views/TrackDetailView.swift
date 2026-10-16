@@ -21,6 +21,8 @@ struct TrackDetailView: View {
     @State private var publishStatus = "Wird hochgeladen …"
     @State private var selectedPhotos: [PhotosPickerItem] = []
     @Environment(\.openURL) private var openURL
+    @AppStorage(WordPressClient.siteURLKey) private var wordPressSite = ""
+    @AppStorage(WordPressClient.usernameKey) private var wordPressUser = ""
 
     var body: some View {
         ScrollView {
@@ -75,7 +77,21 @@ struct TrackDetailView: View {
         }
     }
 
+    @ViewBuilder
     private var publishSection: some View {
+        if wordPressSite.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            || wordPressUser.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            Label("Um Strecken auf deiner WordPress-Website zu veröffentlichen, richte WordPress in den Einstellungen ein.", systemImage: "globe")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
+        } else {
+            publishControls
+        }
+    }
+
+    private var publishControls: some View {
         GroupBox {
             VStack(spacing: 12) {
                 HStack {
