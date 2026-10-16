@@ -9,8 +9,9 @@ Tourspur für das iPhone: Strecken live aufzeichnen, als GPX exportieren, über 
 - **GPX-Export** (GPX 1.1) über das iOS-Teilen-Menü
 - **Ordner-Sync**: Strecken automatisch in einen selbst gewählten Ordner (z. B. iCloud Drive) schreiben
 - **Kurzbefehle und Siri**: Aufzeichnung starten, stoppen oder umschalten
+- **Auf WordPress veröffentlichen** (optional): Strecke und Fotos als Beitragsentwurf auf der eigenen Website, mit dem Plugin aus [`wordpress-plugin/`](wordpress-plugin/)
 
-Keine Benutzerkonten, keine Werbung, kein Tracking. Die Daten bleiben auf dem Gerät.
+Keine Benutzerkonten, keine Werbung, kein Tracking. Die Daten bleiben auf dem Gerät, außer du veröffentlichst eine Strecke auf deiner eigenen WordPress-Website.
 
 ## Voraussetzungen
 
@@ -33,6 +34,7 @@ GPSTracker/
 ├── Services/    LocationManager, TrackStore (Speichern/Sync), GPXExporter
 ├── Views/       SwiftUI-Ansichten (Live, Liste, Detail, Karte, Diagramme)
 └── Intents/     Kurzbefehle/Siri (AppIntents)
+wordpress-plugin/ WordPress-Plugin „Fotospur“ für die Veröffentlichung
 website/         Produkt- und Datenschutzseite
 ```
 

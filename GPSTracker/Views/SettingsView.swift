@@ -48,7 +48,7 @@ struct SettingsView: View {
                 } header: {
                     Text("WordPress")
                 } footer: {
-                    Text("Optional: Strecken als Beitragsentwurf auf deiner eigenen WordPress-Website veröffentlichen. Dafür muss dort das Tourspur-Plugin installiert sein. Das Anwendungspasswort erstellst du in WordPress unter Benutzer → Profil → Anwendungspasswörter. Es wird sicher im Schlüsselbund gespeichert.")
+                    Text("Optional: Strecken als Beitragsentwurf auf deiner eigenen WordPress-Website veröffentlichen. Dafür muss dort das Plugin „Fotospur“ installiert sein. Das Anwendungspasswort erstellst du in WordPress unter Benutzer → Profil → Anwendungspasswörter. Es wird sicher im Schlüsselbund gespeichert.")
                 }
 
                 Section {
