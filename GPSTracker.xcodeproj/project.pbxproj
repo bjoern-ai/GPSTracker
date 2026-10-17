@@ -13,6 +13,10 @@
 		3F216FA2DFA91FAF5C848D13 /* StatsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80430BD0A566DBDFF176629 /* StatsGridView.swift */; };
 		43DB77B3E764695844A8C6FB /* GPSTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B24F077A6CFE0E253FC6E /* GPSTrackerApp.swift */; };
 		56AF7463CB67B783885E4A46 /* ProfileChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C5DFF8DE08754582185ED5 /* ProfileChartView.swift */; };
+		5E1F0A01B2C3D4E5F6A7B801 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B802 /* KeychainHelper.swift */; };
+		5E1F0A01B2C3D4E5F6A7B803 /* WordPressClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B804 /* WordPressClient.swift */; };
+		5E1F0A01B2C3D4E5F6A7B805 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B806 /* SettingsView.swift */; };
+		5E1F0A01B2C3D4E5F6A7B807 /* PhotoConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B808 /* PhotoConverter.swift */; };
 		6AE8ACFCF99EF3DE0F4D72B2 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C9B6FF2EEEF8638D10C7A /* Track.swift */; };
 		6C4A8DFD624804137B75239F /* TrackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5963033D59C0639BFFE1921 /* TrackDetailView.swift */; };
 		7A7DBC156F29E8D5700FEF70 /* SavedTracksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1D4596F45E0340C7B9D7E4 /* SavedTracksView.swift */; };
@@ -24,10 +28,6 @@
 		C730909CEC400F7A7118063F /* TrackStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A8E16DE222F12954C5F9C0 /* TrackStore.swift */; };
 		CB93A28F18004D33554EA6BD /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B65058112A8EF436E1CC /* TrackPoint.swift */; };
 		F22F1F8625936F1A63A2DE9F /* TrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1034EAC4C09461E9AE945CE /* TrackMapView.swift */; };
-		5E1F0A01B2C3D4E5F6A7B801 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B802 /* KeychainHelper.swift */; };
-		5E1F0A01B2C3D4E5F6A7B803 /* WordPressClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B804 /* WordPressClient.swift */; };
-		5E1F0A01B2C3D4E5F6A7B805 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B806 /* SettingsView.swift */; };
-		5E1F0A01B2C3D4E5F6A7B807 /* PhotoConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F0A01B2C3D4E5F6A7B808 /* PhotoConverter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +39,10 @@
 		361B24F077A6CFE0E253FC6E /* GPSTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTrackerApp.swift; sourceTree = "<group>"; };
 		3ED9B65058112A8EF436E1CC /* TrackPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPoint.swift; sourceTree = "<group>"; };
 		5991E839E42CFA1C7566539E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		5E1F0A01B2C3D4E5F6A7B802 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		5E1F0A01B2C3D4E5F6A7B804 /* WordPressClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPressClient.swift; sourceTree = "<group>"; };
+		5E1F0A01B2C3D4E5F6A7B806 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5E1F0A01B2C3D4E5F6A7B808 /* PhotoConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoConverter.swift; sourceTree = "<group>"; };
 		A0A8E16DE222F12954C5F9C0 /* TrackStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStore.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B5D /* RecordingIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIntents.swift; sourceTree = "<group>"; };
 		A3661A396C1E6F43E1304F85 /* GPSTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPSTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,10 +54,6 @@
 		DA1D4596F45E0340C7B9D7E4 /* SavedTracksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTracksView.swift; sourceTree = "<group>"; };
 		F49933B2A32D31EFCFB077CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5E1F0A01B2C3D4E5F6A7B802 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
-		5E1F0A01B2C3D4E5F6A7B804 /* WordPressClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPressClient.swift; sourceTree = "<group>"; };
-		5E1F0A01B2C3D4E5F6A7B806 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		5E1F0A01B2C3D4E5F6A7B808 /* PhotoConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,12 +244,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P2M7JR3228;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = GPSTracker/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -269,11 +270,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = GPSTracker/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
