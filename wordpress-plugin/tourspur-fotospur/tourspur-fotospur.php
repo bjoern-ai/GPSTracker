@@ -2,17 +2,18 @@
 /**
  * Plugin Name:       Fotospur
  * Description:       Block „Fotospur“: zeigt die Fotos einer Tour an der Stelle der Tourspur-Strecke, an der sie aufgenommen wurden.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.5
  * Requires PHP:      7.4
- * Author:            Rollermomente
+ * Author:            Björn Czibulla
+ * Plugin URI:        https://github.com/bjoern-ai/GPSTracker
  * License:           MIT
- * Text Domain:       rollermomente-fotospur
+ * Text Domain:       tourspur-fotospur
  */
 
 defined( 'ABSPATH' ) || exit;
 
-const RM_FOTOSPUR_VERSION = '1.0.0';
+const TOURSPUR_FOTOSPUR_VERSION = '1.1.0';
 
 /**
  * GPX-Dateien in der Mediathek erlauben.
@@ -46,35 +47,42 @@ add_action(
 	'init',
 	function () {
 		$url = plugin_dir_url( __FILE__ );
-		wp_register_style( 'rm-fotospur', $url . 'assets/fotospur.css', array(), RM_FOTOSPUR_VERSION );
-		wp_register_script( 'rm-fotospur', $url . 'assets/fotospur.js', array(), RM_FOTOSPUR_VERSION, array( 'in_footer' => true ) );
+		wp_register_style( 'tourspur-fotospur', $url . 'assets/fotospur.css', array(), TOURSPUR_FOTOSPUR_VERSION );
+		wp_register_script( 'tourspur-fotospur', $url . 'assets/fotospur.js', array(), TOURSPUR_FOTOSPUR_VERSION, array( 'in_footer' => true ) );
 		wp_register_script(
-			'rm-fotospur-editor',
+			'tourspur-fotospur-editor',
 			$url . 'assets/editor.js',
 			array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-data', 'wp-core-data', 'wp-server-side-render' ),
-			RM_FOTOSPUR_VERSION,
+			TOURSPUR_FOTOSPUR_VERSION,
 			true
 		);
 
-		register_block_type(
-			'rollermomente/fotospur',
-			array(
-				'api_version'     => 3,
-				'title'           => 'Fotospur',
-				'description'     => 'Fotos entlang der Tourspur-Strecke.',
-				'category'        => 'media',
-				'icon'            => 'location-alt',
-				'editor_script'   => 'rm-fotospur-editor',
-				'style'           => 'rm-fotospur',
-				'attributes'      => array(
-					'gpxId'    => array( 'type' => 'number', 'default' => 0 ),
-					'imageIds' => array( 'type' => 'array', 'default' => array(), 'items' => array( 'type' => 'number' ) ),
-					'name'     => array( 'type' => 'string', 'default' => '' ),
-				),
-				'supports'        => array( 'html' => false, 'align' => array( 'wide' ) ),
-				'render_callback' => 'rm_fotospur_render',
-			)
+		$args = array(
+			'api_version'     => 3,
+			'title'           => 'Fotospur',
+			'description'     => 'Fotos entlang der Tourspur-Strecke.',
+			'category'        => 'media',
+			'icon'            => 'location-alt',
+			'editor_script'   => 'tourspur-fotospur-editor',
+			'style'           => 'tourspur-fotospur',
+			'attributes'      => array(
+				'gpxId'    => array( 'type' => 'number', 'default' => 0 ),
+				'imageIds' => array( 'type' => 'array', 'default' => array(), 'items' => array( 'type' => 'number' ) ),
+				'name'     => array( 'type' => 'string', 'default' => '' ),
+			),
+			'supports'        => array( 'html' => false, 'align' => array( 'wide' ) ),
+			'render_callback' => 'tourspur_fotospur_render',
 		);
+
+		register_block_type( 'tourspur/fotospur', $args );
+
+		// Früherer Name aus der ersten Version: bestehende Beiträge funktionieren weiter,
+		// im Block-Einfügen erscheint er aber nicht mehr.
+		if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'rollermomente/fotospur' ) ) {
+			$legacy             = $args;
+			$legacy['supports'] = array_merge( $args['supports'], array( 'inserter' => false ) );
+			register_block_type( 'rollermomente/fotospur', $legacy );
+		}
 	}
 );
 
@@ -85,7 +93,7 @@ add_action(
 	'enqueue_block_assets',
 	function () {
 		if ( is_admin() ) {
-			wp_enqueue_script( 'rm-fotospur' );
+			wp_enqueue_script( 'tourspur-fotospur' );
 		}
 	}
 );
@@ -93,7 +101,7 @@ add_action(
 /**
  * Kürzester Abstand auf der Erdkugel in Kilometern.
  */
-function rm_fotospur_km( $lat1, $lon1, $lat2, $lon2 ) {
+function tourspur_fotospur_km( $lat1, $lon1, $lat2, $lon2 ) {
 	$r  = 6371.0088;
 	$p1 = deg2rad( $lat1 );
 	$p2 = deg2rad( $lat2 );
@@ -104,7 +112,7 @@ function rm_fotospur_km( $lat1, $lon1, $lat2, $lon2 ) {
 /**
  * Liest eine GPX-Datei: Punkte mit lat, lon, ele, time (Unix) und km.
  */
-function rm_fotospur_read_gpx( $path ) {
+function tourspur_fotospur_read_gpx( $path ) {
 	if ( ! $path || ! is_readable( $path ) ) {
 		return null;
 	}
@@ -128,7 +136,7 @@ function rm_fotospur_read_gpx( $path ) {
 		$t   = isset( $n->time ) ? strtotime( (string) $n->time ) : null;
 		if ( $pts ) {
 			$last = end( $pts );
-			$km  += rm_fotospur_km( $last['lat'], $last['lon'], $lat, $lon );
+			$km  += tourspur_fotospur_km( $last['lat'], $last['lon'], $lat, $lon );
 		}
 		$pts[] = array( 'lat' => $lat, 'lon' => $lon, 'ele' => $ele, 'time' => $t ?: null, 'km' => $km );
 	}
@@ -138,7 +146,7 @@ function rm_fotospur_read_gpx( $path ) {
 /**
  * Aufnahmezeit (Unix) und GPS-Position eines Fotos aus der Mediathek.
  */
-function rm_fotospur_photo_info( $id ) {
+function tourspur_fotospur_photo_info( $id ) {
 	$file = function_exists( 'wp_get_original_image_path' ) ? wp_get_original_image_path( $id ) : get_attached_file( $id );
 	$time = null;
 	$pos  = null;
@@ -184,15 +192,15 @@ function rm_fotospur_photo_info( $id ) {
 /**
  * Baut die Daten für fotospur.js. Ergebnis wird zwischengespeichert.
  */
-function rm_fotospur_data( $gpx_id, $image_ids, $name ) {
+function tourspur_fotospur_data( $gpx_id, $image_ids, $name ) {
 	$gpx_path = get_attached_file( $gpx_id );
-	$key      = 'rm_fotospur_' . md5( wp_json_encode( array( $gpx_id, $image_ids, $name, $gpx_path ? @filemtime( $gpx_path ) : 0, RM_FOTOSPUR_VERSION ) ) ); // phpcs:ignore
+	$key      = 'tourspur_fotospur_' . md5( wp_json_encode( array( $gpx_id, $image_ids, $name, $gpx_path ? @filemtime( $gpx_path ) : 0, TOURSPUR_FOTOSPUR_VERSION ) ) ); // phpcs:ignore
 	$cached   = get_transient( $key );
 	if ( false !== $cached ) {
 		return $cached;
 	}
 
-	$pts = rm_fotospur_read_gpx( $gpx_path );
+	$pts = tourspur_fotospur_read_gpx( $gpx_path );
 	if ( ! $pts ) {
 		return null;
 	}
@@ -221,12 +229,12 @@ function rm_fotospur_data( $gpx_id, $image_ids, $name ) {
 	$photos  = array();
 	$missing = array();
 	foreach ( $image_ids as $i => $id ) {
-		list( $time, $pos ) = rm_fotospur_photo_info( $id );
+		list( $time, $pos ) = tourspur_fotospur_photo_info( $id );
 		$best               = null;
 		if ( $pos ) {
 			$d = INF;
 			foreach ( $pts as $p ) {
-				$dd = rm_fotospur_km( $pos[0], $pos[1], $p['lat'], $p['lon'] );
+				$dd = tourspur_fotospur_km( $pos[0], $pos[1], $p['lat'], $p['lon'] );
 				if ( $dd < $d ) {
 					$d    = $dd;
 					$best = $p;
@@ -304,7 +312,7 @@ function rm_fotospur_data( $gpx_id, $image_ids, $name ) {
 /**
  * Ausgabe des Blocks.
  */
-function rm_fotospur_render( $attrs ) {
+function tourspur_fotospur_render( $attrs ) {
 	$gpx_id    = (int) ( $attrs['gpxId'] ?? 0 );
 	$image_ids = array_values( array_filter( array_map( 'intval', (array) ( $attrs['imageIds'] ?? array() ) ) ) );
 	$wrapper   = get_block_wrapper_attributes( array( 'class' => 'fotospur-block' ) );
@@ -314,14 +322,14 @@ function rm_fotospur_render( $attrs ) {
 			? '<div ' . $wrapper . '><p class="fotospur-hinweis">Fotospur: Bitte eine GPX-Datei auswählen.</p></div>'
 			: '';
 	}
-	$data = rm_fotospur_data( $gpx_id, $image_ids, (string) ( $attrs['name'] ?? '' ) );
+	$data = tourspur_fotospur_data( $gpx_id, $image_ids, (string) ( $attrs['name'] ?? '' ) );
 	if ( ! $data ) {
 		return current_user_can( 'edit_posts' )
 			? '<div ' . $wrapper . '><p class="fotospur-hinweis">Fotospur: Die GPX-Datei enthält keine Strecke.</p></div>'
 			: '';
 	}
 
-	wp_enqueue_script( 'rm-fotospur' );
+	wp_enqueue_script( 'tourspur-fotospur' );
 
 	$s     = $data['stats'];
 	$cells = array(

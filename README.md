@@ -26,6 +26,16 @@ Keine Benutzerkonten, keine Werbung, kein Tracking. Die Daten bleiben auf dem Ge
 3. Die **Bundle Identifier** auf eine eigene ID ändern (z. B. `com.deinname.GPSTracker`).
 4. Auf einem iPhone ausführen. Für Hintergrund-Aufzeichnung die Standort-Berechtigung „Immer“ erteilen.
 
+## WordPress-Plugin
+
+Tourspur kann Strecken mit Fotos als Beitragsentwurf auf deiner eigenen WordPress-Website veröffentlichen. Dafür brauchst du das Plugin „Fotospur“:
+
+1. [`wordpress-plugin/tourspur-fotospur.zip`](wordpress-plugin/tourspur-fotospur.zip) herunterladen.
+2. In WordPress unter **Plugins → Neues Plugin hinzufügen → Plugin hochladen** die ZIP-Datei installieren und aktivieren.
+3. Unter **Benutzer → Profil → Anwendungspasswörter** ein Anwendungspasswort anlegen und es mit Website-URL und Benutzername in Tourspur unter **Einstellungen → WordPress** eintragen.
+
+Details in [`wordpress-plugin/README.md`](wordpress-plugin/README.md).
+
 ## Projektstruktur
 
 ```

@@ -70,13 +70,23 @@
             })
           )
         ),
-        el(ServerSideRender, { block: "rollermomente/fotospur", attributes: a })
+        el(ServerSideRender, { block: props.name, attributes: a })
       )
     );
   }
 
-  wp.blocks.registerBlockType("rollermomente/fotospur", {
+  wp.blocks.registerBlockType("tourspur/fotospur", {
     edit: Edit,
     save: function () { return null; }
   });
+
+  // Früherer Name: bestehende Beiträge bleiben bearbeitbar, neu einfügen lässt er sich nicht mehr.
+  if (!wp.blocks.getBlockType("rollermomente/fotospur")) {
+    wp.blocks.registerBlockType("rollermomente/fotospur", {
+      title: "Fotospur (alt)",
+      supports: { inserter: false, html: false },
+      edit: Edit,
+      save: function () { return null; }
+    });
+  }
 })(window.wp);

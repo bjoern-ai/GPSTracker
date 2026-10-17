@@ -123,7 +123,7 @@ struct WordPressClient {
             .replacingOccurrences(of: "<", with: "\\u003c")
             .replacingOccurrences(of: ">", with: "\\u003e")
             .replacingOccurrences(of: "&", with: "\\u0026")
-        let content = "<!-- wp:rollermomente/fotospur \(attributeJSON) /-->"
+        let content = "<!-- wp:tourspur/fotospur \(attributeJSON) /-->"
 
         var request = URLRequest(url: endpoint("posts"))
         request.httpMethod = "POST"

@@ -12,11 +12,13 @@ Die Strecke wird ohne Kartendienst gezeichnet, es werden keine Daten an Dritte �
 
 ## Installation
 
-1. [`rollermomente-fotospur.zip`](rollermomente-fotospur.zip) herunterladen.
+1. [`tourspur-fotospur.zip`](tourspur-fotospur.zip) herunterladen.
 2. In WordPress: **Plugins → Neues Plugin hinzufügen → Plugin hochladen**, die ZIP-Datei auswählen und **Jetzt installieren** tippen.
 3. Plugin **aktivieren**.
 4. **Benutzer → Profil → Anwendungspasswörter**: einen Namen eingeben (z. B. „Tourspur“) und **Neues Anwendungspasswort hinzufügen**. Das angezeigte Passwort kopieren.
 5. In Tourspur unter **Einstellungen → WordPress** die Website-URL (z. B. `https://meine-website.de`), deinen WordPress-Benutzernamen und das Anwendungspasswort eintragen und **Verbindung testen**.
+
+Du hast noch die erste Version (`rollermomente-fotospur`) installiert? Erst das neue Plugin aktivieren, dann das alte deaktivieren und löschen. Bestehende Beiträge funktionieren weiter.
 
 ## Benutzung
 
