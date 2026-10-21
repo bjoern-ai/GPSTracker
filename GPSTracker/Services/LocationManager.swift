@@ -8,6 +8,7 @@ final class LocationManager: NSObject, ObservableObject {
     static let shared = LocationManager()
 
     private let manager = CLLocationManager()
+    private let liveActivity = LiveActivityController.shared
 
     @Published var authorizationStatus: CLAuthorizationStatus
     @Published var currentLocation: CLLocation?
@@ -31,6 +32,8 @@ final class LocationManager: NSObject, ObservableObject {
         #if DEBUG
         loadScreenshotDemoIfRequested()
         #endif
+        // A recording doesn't survive the app being terminated, so neither should its Live Activity.
+        liveActivity.endStaleActivities()
     }
 
     #if DEBUG
@@ -81,14 +84,17 @@ final class LocationManager: NSObject, ObservableObject {
         manager.allowsBackgroundLocationUpdates = authorizationStatus == .authorizedAlways
         manager.showsBackgroundLocationIndicator = true
         startUpdating()
+        liveActivity.start(track: currentTrack)
     }
 
     func pauseRecording() {
         isPaused = true
+        liveActivity.update(track: currentTrack, speed: currentSpeed, isPaused: true, force: true)
     }
 
     func resumeRecording() {
         isPaused = false
+        liveActivity.update(track: currentTrack, speed: currentSpeed, isPaused: false, force: true)
     }
 
     /// Stops the recording, clears the live view and returns the finished
@@ -102,6 +108,7 @@ final class LocationManager: NSObject, ObservableObject {
         var finished = currentTrack
         finished.endDate = Date()
         currentTrack = Track(name: "Neue Strecke")
+        liveActivity.end(track: finished)
         return finished
     }
 }
@@ -129,6 +136,9 @@ extension LocationManager: CLLocationManagerDelegate {
             if self.isRecording, !self.isPaused,
                location.horizontalAccuracy >= 0, location.horizontalAccuracy < 50 {
                 self.currentTrack.points.append(TrackPoint(location: location))
+            }
+            if self.isRecording {
+                self.liveActivity.update(track: self.currentTrack, speed: self.currentSpeed, isPaused: self.isPaused)
             }
         }
     }

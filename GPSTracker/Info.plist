@@ -30,6 +30,8 @@
 	<string>Tourspur kann deine Strecke auch aufzeichnen, während die App im Hintergrund läuft, z. B. wenn dein Bildschirm aus ist.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Tourspur benötigt deinen Standort, um deine Strecke live auf der Karte anzuzeigen und aufzuzeichnen.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
