@@ -2,16 +2,21 @@ import SwiftUI
 import MapKit
 
 /// Shows a route as a polyline. In live mode it follows the device's
-/// location; for a saved track it fits the camera to the route's bounds.
+/// location; for a saved track it fits the camera to the route's bounds and
+/// can show photos as thumbnails.
 struct TrackMapView: View {
     let points: [TrackPoint]
     var isLive: Bool = true
+    var photoPins: [PhotoPin] = []
+    var onSelectPhoto: ((PhotoPin) -> Void)?
 
     @State private var cameraPosition: MapCameraPosition
 
-    init(points: [TrackPoint], isLive: Bool = true) {
+    init(points: [TrackPoint], isLive: Bool = true, photoPins: [PhotoPin] = [], onSelectPhoto: ((PhotoPin) -> Void)? = nil) {
         self.points = points
         self.isLive = isLive
+        self.photoPins = photoPins
+        self.onSelectPhoto = onSelectPhoto
         _cameraPosition = State(initialValue: isLive ? .userLocation(fallback: .automatic) : .automatic)
     }
 
@@ -34,6 +39,11 @@ struct TrackMapView: View {
                         startEndMarker(systemImage: "flag.checkered.circle.fill", color: .red)
                     }
                 }
+                ForEach(photoPins) { pin in
+                    Annotation("", coordinate: pin.coordinate, anchor: .bottom) {
+                        photoMarker(pin)
+                    }
+                }
             }
         }
         .mapControls {
@@ -53,6 +63,22 @@ struct TrackMapView: View {
             .font(.title2)
             .foregroundStyle(color)
             .background(Circle().fill(.white))
+    }
+
+    private func photoMarker(_ pin: PhotoPin) -> some View {
+        Button {
+            onSelectPhoto?(pin)
+        } label: {
+            Image(uiImage: pin.thumbnail)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 40, height: 40)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .overlay(RoundedRectangle(cornerRadius: 6).stroke(.white, lineWidth: 2))
+                .shadow(radius: 2)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Foto")
     }
 
     private func fitToRoute() {

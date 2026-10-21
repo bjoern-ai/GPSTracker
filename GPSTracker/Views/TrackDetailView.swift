@@ -20,6 +20,9 @@ struct TrackDetailView: View {
     @State private var publishError: String?
     @State private var publishStatus = "Wird hochgeladen …"
     @State private var selectedPhotos: [PhotosPickerItem] = []
+    @State private var photoPins: [PhotoPin] = []
+    @State private var photosWithoutLocation = 0
+    @State private var selectedPin: PhotoPin?
     @Environment(\.openURL) private var openURL
     @AppStorage(WordPressClient.siteURLKey) private var wordPressSite = ""
     @AppStorage(WordPressClient.usernameKey) private var wordPressUser = ""
@@ -27,8 +30,10 @@ struct TrackDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                TrackMapView(points: track.points, isLive: false)
-                    .frame(height: 250)
+                TrackMapView(points: track.points, isLive: false, photoPins: photoPins) { pin in
+                    selectedPin = pin
+                }
+                .frame(height: 250)
 
                 statsSection
 
@@ -48,12 +53,20 @@ struct TrackDetailView: View {
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
 
+                photoSection
+
                 publishSection
             }
             .padding(.vertical)
         }
         .navigationTitle(track.name)
         .navigationBarTitleDisplayMode(.inline)
+        .task(id: selectedPhotos) {
+            await loadPhotoPins()
+        }
+        .sheet(item: $selectedPin) { pin in
+            PhotoPreview(pin: pin)
+        }
         .sheet(item: $exportFile) { file in
             ShareSheet(items: [file.url])
                 .presentationDetents([.medium, .large])
@@ -91,9 +104,10 @@ struct TrackDetailView: View {
         }
     }
 
-    private var publishControls: some View {
+    /// Selected photos appear on the map and are uploaded when publishing.
+    private var photoSection: some View {
         GroupBox {
-            VStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     PhotosPicker(selection: $selectedPhotos, selectionBehavior: .ordered, matching: .images) {
                         Label(photoSelectionText, systemImage: "photo.on.rectangle.angled")
@@ -107,6 +121,22 @@ struct TrackDetailView: View {
                 }
                 .disabled(isPublishing)
 
+                if photosWithoutLocation > 0 {
+                    Label(photosWithoutLocation == 1 ? "1 Foto ohne Ortsangabe" : "\(photosWithoutLocation) Fotos ohne Ortsangabe",
+                          systemImage: "location.slash")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        } label: {
+            Text("Fotos")
+        }
+        .padding(.horizontal)
+    }
+
+    private var publishControls: some View {
+        GroupBox {
+            VStack(spacing: 12) {
                 Button {
                     publish()
                 } label: {
@@ -131,10 +161,33 @@ struct TrackDetailView: View {
 
     private var photoSelectionText: String {
         switch selectedPhotos.count {
-        case 0: return "Fotos auswählen (optional)"
+        case 0: return "Fotos auswählen"
         case 1: return "1 Foto ausgewählt"
         default: return "\(selectedPhotos.count) Fotos ausgewählt"
         }
+    }
+
+    /// Places the selected photos on the map. Runs again whenever the selection changes.
+    private func loadPhotoPins() async {
+        let items = selectedPhotos
+        let track = track
+        var pins: [PhotoPin] = []
+        var withoutLocation = 0
+        for (index, item) in items.enumerated() {
+            guard let data = try? await item.loadTransferable(type: Data.self) else {
+                withoutLocation += 1
+                continue
+            }
+            if Task.isCancelled { return }
+            if let pin = await Task.detached(operation: { PhotoLocator.pin(id: index, data: data, track: track) }).value {
+                pins.append(pin)
+            } else {
+                withoutLocation += 1
+            }
+        }
+        if Task.isCancelled { return }
+        photoPins = pins
+        photosWithoutLocation = withoutLocation
     }
 
     private enum PhotoError: LocalizedError {
@@ -208,5 +261,50 @@ struct TrackDetailView: View {
         let m = (duration % 3600) / 60
         let s = duration % 60
         return String(format: "%02d:%02d:%02d", h, m, s)
+    }
+}
+
+/// Large view of a photo tapped on the map.
+private struct PhotoPreview: View {
+    let pin: PhotoPin
+    @State private var image: UIImage?
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 12) {
+                Image(uiImage: image ?? pin.thumbnail)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                if let caption {
+                    Text(caption)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .padding()
+            .navigationTitle("Foto")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Fertig") { dismiss() }
+                }
+            }
+        }
+        .task {
+            let data = pin.data
+            image = await Task.detached { PhotoLocator.previewImage(from: data) }.value
+        }
+    }
+
+    private var caption: String? {
+        let date = pin.date?.formatted(.dateTime.day().month().year().hour().minute().locale(Locale(identifier: "de_DE")))
+        switch (date, pin.isEstimated) {
+        case (let date?, true): return "\(date) · Position aus der Aufnahmezeit geschätzt"
+        case (let date?, false): return date
+        case (nil, true): return "Position aus der Aufnahmezeit geschätzt"
+        case (nil, false): return nil
+        }
     }
 }
