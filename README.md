@@ -2,6 +2,8 @@
 
 Tourspur für das iPhone: Strecken live aufzeichnen, als GPX exportieren, über iCloud Drive synchronisieren, per Siri starten und mit Fotos auf der eigenen WordPress-Website veröffentlichen.
 
+**[Kostenlos im App Store laden](https://apps.apple.com/de/app/tourspur/id6821229337)**
+
 ## Funktionen
 
 - **Live-Aufzeichnung** mit Karte, Geschwindigkeit, Höhe, Richtung und GPS-Genauigkeit, auch bei gesperrtem Bildschirm
