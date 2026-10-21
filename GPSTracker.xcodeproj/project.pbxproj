@@ -36,6 +36,7 @@
 		11A0000000000000000000D2 /* TourspurWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000000D1 /* TourspurWidgetsBundle.swift */; };
 		11A0000000000000000000E2 /* RecordingLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000000E1 /* RecordingLiveActivity.swift */; };
 		11A00000000000000000A0A2 /* TourspurWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 11A00000000000000000A0A1 /* TourspurWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		11A0000000000000000001A2 /* GPXImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000001A1 /* GPXImporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		11A0000000000000000000E1 /* RecordingLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingLiveActivity.swift; sourceTree = "<group>"; };
 		11A0000000000000000000F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11A00000000000000000A0A1 /* TourspurWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TourspurWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		11A0000000000000000001A1 /* GPXImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXImporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				34DED8ED8269590C496DC6EC /* LocationManager.swift */,
 				A0A8E16DE222F12954C5F9C0 /* TrackStore.swift */,
 				2D1C74544A27127C9C26DD54 /* GPXExporter.swift */,
+				11A0000000000000000001A1 /* GPXImporter.swift */,
 				5E1F0A01B2C3D4E5F6A7B804 /* WordPressClient.swift */,
 				5E1F0A01B2C3D4E5F6A7B808 /* PhotoConverter.swift */,
 				5E1F0A01B2C3D4E5F6A7B802 /* KeychainHelper.swift */,
@@ -335,6 +338,7 @@
 				11A0000000000000000000A2 /* RecordingActivityAttributes.swift in Sources */,
 				11A0000000000000000000B2 /* RecordingActivityIntents.swift in Sources */,
 				11A0000000000000000000C2 /* LiveActivityController.swift in Sources */,
+				11A0000000000000000001A2 /* GPXImporter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

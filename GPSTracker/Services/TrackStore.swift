@@ -61,6 +61,13 @@ final class TrackStore: ObservableObject {
         }
     }
 
+    /// Reads a GPX file and saves it as a new track.
+    func importGPX(from url: URL) async throws -> Track {
+        let track = try await Task.detached { try GPXImporter.track(from: url) }.value
+        await MainActor.run { save(track) }
+        return track
+    }
+
     func delete(_ track: Track) {
         tracks.removeAll { $0.id == track.id }
 

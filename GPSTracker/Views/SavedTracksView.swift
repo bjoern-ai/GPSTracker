@@ -2,11 +2,26 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct SavedTracksView: View {
+    /// One file importer serves both pickers; two on the same view would conflict.
+    private enum FilePicker {
+        case syncFolder, gpx
+
+        var contentTypes: [UTType] {
+            switch self {
+            case .syncFolder: return [.folder]
+            case .gpx: return [.gpx, .xml]
+            }
+        }
+    }
+
     @EnvironmentObject var trackStore: TrackStore
-    @State private var showFolderPicker = false
+    @State private var filePicker = FilePicker.gpx
+    @State private var showFilePicker = false
+    @State private var path: [Track] = []
+    @State private var importError: String?
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List {
                 if let error = trackStore.syncError {
                     Label(error, systemImage: "exclamationmark.triangle.fill")
@@ -17,7 +32,7 @@ struct SavedTracksView: View {
                     ContentUnavailableView(
                         "Keine Strecken",
                         systemImage: "map",
-                        description: Text("Aufgezeichnete Strecken erscheinen hier.")
+                        description: Text("Aufgezeichnete und importierte Strecken erscheinen hier.")
                     )
                 }
                 ForEach(trackStore.tracks) { track in
@@ -35,6 +50,13 @@ struct SavedTracksView: View {
             }
             .navigationTitle("Strecken")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        presentFilePicker(.gpx)
+                    } label: {
+                        Label("GPX importieren", systemImage: "square.and.arrow.down")
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     syncMenu
                 }
@@ -42,10 +64,36 @@ struct SavedTracksView: View {
             .navigationDestination(for: Track.self) { track in
                 TrackDetailView(track: track)
             }
-            .fileImporter(isPresented: $showFolderPicker, allowedContentTypes: [.folder]) { result in
-                if case .success(let url) = result {
-                    trackStore.setSyncFolder(url)
+            .fileImporter(isPresented: $showFilePicker, allowedContentTypes: filePicker.contentTypes) { result in
+                guard case .success(let url) = result else { return }
+                switch filePicker {
+                case .syncFolder: trackStore.setSyncFolder(url)
+                case .gpx: importGPX(from: url)
                 }
+            }
+            .alert("Import fehlgeschlagen", isPresented: Binding(
+                get: { importError != nil },
+                set: { if !$0 { importError = nil } }
+            )) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(importError ?? "")
+            }
+        }
+    }
+
+    private func presentFilePicker(_ picker: FilePicker) {
+        filePicker = picker
+        showFilePicker = true
+    }
+
+    private func importGPX(from url: URL) {
+        Task {
+            do {
+                let track = try await trackStore.importGPX(from: url)
+                path = [track]
+            } catch {
+                importError = error.localizedDescription
             }
         }
     }
@@ -60,7 +108,7 @@ struct SavedTracksView: View {
                         Label("Jetzt synchronisieren", systemImage: "arrow.triangle.2.circlepath")
                     }
                     Button {
-                        showFolderPicker = true
+                        presentFilePicker(.syncFolder)
                     } label: {
                         Label("Anderen Ordner wählen …", systemImage: "folder")
                     }
@@ -73,7 +121,7 @@ struct SavedTracksView: View {
             } else {
                 Section("Strecken werden nur auf diesem Gerät gespeichert.") {
                     Button {
-                        showFolderPicker = true
+                        presentFilePicker(.syncFolder)
                     } label: {
                         Label("Sync-Ordner wählen …", systemImage: "folder.badge.plus")
                     }
