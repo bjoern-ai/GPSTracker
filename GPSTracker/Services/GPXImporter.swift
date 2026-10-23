@@ -4,6 +4,17 @@ import UniformTypeIdentifiers
 
 extension UTType {
     static let gpx = UTType(importedAs: "com.topografix.gpx", conformingTo: .xml)
+
+    /// Every type the system maps to ".gpx". Other installed apps may claim the
+    /// extension with their own type that doesn't conform to ours or to XML,
+    /// which would grey out their files in the picker.
+    static var gpxFileTypes: [UTType] {
+        var types: [UTType] = [.gpx, .xml]
+        for type in UTType.types(tag: "gpx", tagClass: .filenameExtension, conformingTo: nil) where !types.contains(type) {
+            types.append(type)
+        }
+        return types
+    }
 }
 
 /// Reads GPX files into tracks. Uses the points of all track segments, or the

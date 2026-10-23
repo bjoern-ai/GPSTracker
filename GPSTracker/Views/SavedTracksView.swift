@@ -9,7 +9,7 @@ struct SavedTracksView: View {
         var contentTypes: [UTType] {
             switch self {
             case .syncFolder: return [.folder]
-            case .gpx: return [.gpx, .xml]
+            case .gpx: return UTType.gpxFileTypes
             }
         }
     }
