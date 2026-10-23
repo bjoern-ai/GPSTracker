@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Fotospur
  * Description:       Block „Fotospur“: zeigt die Fotos einer Tour an der Stelle der Tourspur-Strecke, an der sie aufgenommen wurden.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Requires at least: 6.5
  * Requires PHP:      7.4
  * Author:            Björn Czibulla
@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const TOURSPUR_FOTOSPUR_VERSION = '1.1.0';
+const TOURSPUR_FOTOSPUR_VERSION = '1.1.1';
 
 /**
  * GPX-Dateien in der Mediathek erlauben.

@@ -106,16 +106,39 @@
     var done = el("path", { d: d, class: "fs-route", "stroke-dasharray": L, "stroke-dashoffset": L }, map);
     el("circle", { cx: P[0][0], cy: P[0][1], r: 4, class: "fs-start" }, map);
 
-    var pins = photos.map(function (ph, n) {
-      var p = at(ph.km);
-      var g = el("g", { class: "fs-pin", tabindex: 0, role: "button", "aria-label": "Foto " + (n + 1) + ": " + (ph.title || "") }, map);
-      el("circle", { cx: p.x, cy: p.y, r: 9 }, g);
-      var t = el("text", { x: p.x, y: p.y + 3.5, "text-anchor": "middle" }, g);
-      t.textContent = n + 1;
-      function jump() { stop(); set(ph.km / total * 1000); }
-      g.addEventListener("click", jump);
-      g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); jump(); } });
-      return g;
+    // Fotos derselben Stelle zu einem Halt zusammenfassen: aufeinanderfolgende
+    // Fotos, die auf der Strecke dicht beieinander liegen oder deren Punkte sich
+    // auf der Karte überdecken würden.
+    var groups = [];
+    photos.forEach(function (ph, n) {
+      var p = at(ph.km), g = groups[groups.length - 1];
+      var prev = g && at(photos[g.idx[g.idx.length - 1]].km);
+      if (g && (ph.km - g.km <= total * 0.01 || Math.hypot(p.x - prev.x, p.y - prev.y) < 14)) {
+        g.idx.push(n);
+      } else {
+        groups.push({ km: ph.km, x: p.x, y: p.y, idx: [n] });
+      }
+    });
+
+    var pins = groups.map(function (g, gi) {
+      var first = g.idx[0] + 1, last = g.idx[g.idx.length - 1] + 1;
+      var label = first === last ? String(first) : first + "–" + last;
+      var aria = first === last
+        ? "Foto " + first + ": " + (photos[g.idx[0]].title || "")
+        : "Fotos " + first + " bis " + last + " an einer Stelle";
+      var pin = el("g", { class: "fs-pin", tabindex: 0, role: "button", "aria-label": aria }, map);
+      if (first === last) {
+        el("circle", { cx: g.x, cy: g.y, r: 9 }, pin);
+      } else {
+        var w = 8 + label.length * 6.2;
+        el("rect", { x: g.x - w / 2, y: g.y - 9, width: w, height: 18, rx: 9 }, pin);
+      }
+      var t = el("text", { x: g.x, y: g.y + 3.5, "text-anchor": "middle" }, pin);
+      t.textContent = label;
+      function jump() { stop(); set(g.km / total * 1000); showPhoto(gi, 0); }
+      pin.addEventListener("click", jump);
+      pin.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); jump(); } });
+      return pin;
     });
     var rider = el("g", { class: "fs-rider" }, map);
     el("circle", { r: 7 }, rider);
@@ -138,11 +161,29 @@
       stop(); set((e.clientX - r.left) / r.width * 1000);
     });
 
-    var shown = -2;
-    function show(n) {
-      if (n === shown) return;
-      shown = n;
-      pins.forEach(function (g, i) { g.classList.toggle("is-active", i === n); });
+    // Blättern innerhalb eines Halts mit mehreren Fotos
+    var nav = h("div", "fs-nav", photoBox);
+    var prevBtn = h("button", "fs-nav-btn", nav);
+    prevBtn.type = "button"; prevBtn.textContent = "‹"; prevBtn.setAttribute("aria-label", "Vorheriges Foto");
+    var nextBtn = h("button", "fs-nav-btn", nav);
+    nextBtn.type = "button"; nextBtn.textContent = "›"; nextBtn.setAttribute("aria-label", "Nächstes Foto");
+    prevBtn.addEventListener("click", function () { stop(); showPhoto(active, inGroup - 1); });
+    nextBtn.addEventListener("click", function () { stop(); showPhoto(active, inGroup + 1); });
+
+    var active = -2, inGroup = 0, shownPhoto = -2;
+    function showPhoto(gi, k) {
+      var g = groups[gi];
+      if (g) k = Math.max(0, Math.min(g.idx.length - 1, k));
+      active = gi; inGroup = g ? k : 0;
+      pins.forEach(function (pin, i) { pin.classList.toggle("is-active", i === gi); });
+      nav.hidden = !g || g.idx.length < 2;
+      if (g) {
+        prevBtn.disabled = k === 0;
+        nextBtn.disabled = k === g.idx.length - 1;
+      }
+      var n = g ? g.idx[k] : -1;
+      if (n === shownPhoto) return;
+      shownPhoto = n;
       if (n < 0) {
         img.style.opacity = 0;
         cap.innerHTML = "<b>" + (data.name || "Start") + "</b>" + fmtKm(total) + " · " + photos.length + " Fotos";
@@ -158,7 +199,8 @@
       cap.innerHTML = "";
       var b = h("b", "", cap); b.textContent = ph.title || "Foto " + (n + 1);
       cap.appendChild(document.createTextNode(
-        "Foto " + (n + 1) + " · km " + ph.km.toFixed(1).replace(".", ",") + (ph.time ? " · " + ph.time + " Uhr" : "")));
+        "Foto " + (n + 1) + (g.idx.length > 1 ? " (" + (k + 1) + " von " + g.idx.length + " hier)" : "") +
+        " · km " + ph.km.toFixed(1).replace(".", ",") + (ph.time ? " · " + ph.time + " Uhr" : "")));
     }
 
     function set(v) {
@@ -170,28 +212,53 @@
       done.setAttribute("stroke-dashoffset", (L - p.len).toFixed(1));
       cur.setAttribute("x1", v * 0.6); cur.setAttribute("x2", v * 0.6);
       out.textContent = fmtKm(km);
-      var n = -1;
-      photos.forEach(function (ph, i) { if (km >= ph.km - total * 0.03) n = i; });
-      show(n);
+      var gi = -1;
+      groups.forEach(function (g, i) { if (km >= g.km - total * 0.03) gi = i; });
+      // Bleibt der Halt derselbe, bleibt auch das gerade gezeigte Foto stehen.
+      if (gi !== active) showPhoto(gi, 0);
+      return km;
     }
 
-    var raf = null;
+    var raf = null, dwell = null, dwelt = {};
+    var DWELL = 1800; // ms je Foto, wenn ein Halt mehrere Fotos hat
     function stop() {
       if (raf) { cancelAnimationFrame(raf); raf = null; }
+      dwell = null;
       btn.textContent = "Abspielen";
     }
     btn.addEventListener("click", function () {
       if (raf) { stop(); return; }
       var v = +range.value >= 1000 ? 0 : +range.value;
       var last = performance.now();
+      dwelt = {};
+      if (active >= 0) dwelt[active] = inGroup > 0; // ein angefangener Halt läuft von vorn bzw. weiter
       btn.textContent = "Pause";
       (function step(now) {
+        // An einem Halt mit mehreren Fotos anhalten und sie nacheinander zeigen
+        if (dwell) {
+          if (now >= dwell.next) {
+            if (inGroup + 1 < groups[active].idx.length) {
+              showPhoto(active, inGroup + 1);
+              dwell.next = now + DWELL;
+            } else {
+              dwell = null;
+            }
+          }
+          last = now;
+          raf = requestAnimationFrame(step);
+          return;
+        }
         // langsamer in der Nähe eines Fotos, damit man es sieht
         var km = v / 1000 * total, near = photos.some(function (ph) { return Math.abs(ph.km - km) < total * 0.02; });
         v += (now - last) * (near ? 0.025 : 0.08);
         last = now;
         if (v >= 1000) { set(1000); stop(); return; }
-        set(v);
+        km = set(v);
+        var g = groups[active];
+        if (g && g.idx.length > 1 && !dwelt[active] && km >= g.km) {
+          dwelt[active] = true;
+          dwell = { next: now + DWELL };
+        }
         raf = requestAnimationFrame(step);
       })(last);
     });
