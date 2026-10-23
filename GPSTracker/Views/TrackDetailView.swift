@@ -22,7 +22,7 @@ struct TrackDetailView: View {
     @State private var selectedPhotos: [PhotosPickerItem] = []
     @State private var photoPins: [PhotoPin] = []
     @State private var photosWithoutLocation = 0
-    @State private var selectedPin: PhotoPin?
+    @State private var selectedPhotoGroup: PhotoGroupSelection?
     @Environment(\.openURL) private var openURL
     @AppStorage(WordPressClient.siteURLKey) private var wordPressSite = ""
     @AppStorage(WordPressClient.usernameKey) private var wordPressUser = ""
@@ -30,8 +30,8 @@ struct TrackDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                TrackMapView(points: track.points, isLive: false, photoPins: photoPins) { pin in
-                    selectedPin = pin
+                TrackMapView(points: track.points, isLive: false, photoPins: photoPins) { pins in
+                    selectedPhotoGroup = PhotoGroupSelection(pins: pins)
                 }
                 .frame(height: 250)
 
@@ -64,8 +64,8 @@ struct TrackDetailView: View {
         .task(id: selectedPhotos) {
             await loadPhotoPins()
         }
-        .sheet(item: $selectedPin) { pin in
-            PhotoPreview(pin: pin)
+        .sheet(item: $selectedPhotoGroup) { selection in
+            PhotoGallery(pins: selection.pins)
         }
         .sheet(item: $exportFile) { file in
             ShareSheet(items: [file.url])
@@ -264,27 +264,33 @@ struct TrackDetailView: View {
     }
 }
 
-/// Large view of a photo tapped on the map.
-private struct PhotoPreview: View {
-    let pin: PhotoPin
-    @State private var image: UIImage?
+private struct PhotoGroupSelection: Identifiable {
+    let pins: [PhotoPin]
+    var id: Int { pins[0].id }
+}
+
+/// Large view of the photos behind a map marker; swipe for more than one.
+private struct PhotoGallery: View {
+    let pins: [PhotoPin]
+    @State private var currentID: Int
     @Environment(\.dismiss) private var dismiss
+
+    init(pins: [PhotoPin]) {
+        self.pins = pins
+        _currentID = State(initialValue: pins.first?.id ?? 0)
+    }
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 12) {
-                Image(uiImage: image ?? pin.thumbnail)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                if let caption {
-                    Text(caption)
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+            TabView(selection: $currentID) {
+                ForEach(pins) { pin in
+                    PhotoPage(pin: pin)
+                        .tag(pin.id)
                 }
             }
-            .padding()
-            .navigationTitle("Foto")
+            .tabViewStyle(.page(indexDisplayMode: pins.count > 1 ? .always : .never))
+            .indexViewStyle(.page(backgroundDisplayMode: .always))
+            .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
@@ -292,6 +298,32 @@ private struct PhotoPreview: View {
                 }
             }
         }
+    }
+
+    private var title: String {
+        guard pins.count > 1, let index = pins.firstIndex(where: { $0.id == currentID }) else { return "Foto" }
+        return "Foto \(index + 1) von \(pins.count)"
+    }
+}
+
+private struct PhotoPage: View {
+    let pin: PhotoPin
+    @State private var image: UIImage?
+
+    var body: some View {
+        VStack(spacing: 12) {
+            Image(uiImage: image ?? pin.thumbnail)
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            if let caption {
+                Text(caption)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding()
+        .padding(.bottom, 32)
         .task {
             let data = pin.data
             image = await Task.detached { PhotoLocator.previewImage(from: data) }.value
