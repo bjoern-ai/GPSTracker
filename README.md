@@ -1,17 +1,20 @@
 # Tourspur
 
-Tourspur für das iPhone: Strecken live aufzeichnen, als GPX exportieren, über iCloud Drive synchronisieren, per Siri starten und mit Fotos auf der eigenen WordPress-Website veröffentlichen.
+Tourspur für das iPhone: Strecken live aufzeichnen und auf dem Sperrbildschirm verfolgen, GPX importieren und exportieren, über iCloud Drive synchronisieren, per Siri starten und mit Fotos auf der eigenen WordPress-Website veröffentlichen.
 
 **[Kostenlos im App Store laden](https://apps.apple.com/de/app/tourspur/id6821229337)**
 
 ## Funktionen
 
 - **Live-Aufzeichnung** mit Karte, Geschwindigkeit, Höhe, Richtung und GPS-Genauigkeit, auch bei gesperrtem Bildschirm
+- **Live-Aktivität** auf dem Sperrbildschirm und in der Dynamic Island: Dauer, Distanz und Tempo auf einen Blick, mit Knöpfen zum Pausieren, Fortsetzen und Beenden, ohne das iPhone zu entsperren
 - **Gespeicherte Strecken** mit Kartenansicht, Statistiken und Höhen-/Geschwindigkeitsprofil
 - **GPX-Export** (GPX 1.1) über das iOS-Teilen-Menü
+- **GPX-Import**: Touren anderer oder geplante Routen aus der Dateien-App laden oder per „Öffnen in“ an Tourspur übergeben (Track- oder Routenpunkte, Höhe und Zeit optional)
+- **Fotos auf der Karte**: ausgewählte Fotos erscheinen als Vorschaubilder an ihrem Aufnahmeort auf der Streckenkarte. Fotos ohne Ortsangabe werden über die Aufnahmezeit auf der Strecke platziert, mehrere Fotos von derselben Stelle zu einem Punkt mit Galerie zusammengefasst
 - **Ordner-Sync**: Strecken automatisch in einen selbst gewählten Ordner (z. B. iCloud Drive) schreiben
 - **Kurzbefehle und Siri**: Aufzeichnung starten, stoppen oder umschalten
-- **Auf WordPress veröffentlichen** (optional): in der Detailansicht einer Strecke Fotos aus der Mediathek auswählen und mit „Auf Website veröffentlichen“ als Beitragsentwurf auf die eigene Website laden (GPX-Datei, Fotos und Fotospur-Block)
+- **Auf WordPress veröffentlichen** (optional): die ausgewählten Fotos zusammen mit der Strecke über „Auf Website veröffentlichen“ als Beitragsentwurf auf die eigene Website laden (GPX-Datei, Fotos und Fotospur-Block)
 - **WordPress-Plugin „Fotospur“**: zeichnet die Strecke im Beitrag ohne Kartendienst und setzt die Fotos anhand von Aufnahmezeit und Ort an die passende Stelle, siehe [`wordpress-plugin/`](wordpress-plugin/)
 
 Keine Benutzerkonten, keine Werbung, kein Tracking. Die Daten bleiben auf dem Gerät, außer du veröffentlichst eine Strecke auf deiner eigenen WordPress-Website.
@@ -20,13 +23,13 @@ Keine Benutzerkonten, keine Werbung, kein Tracking. Die Daten bleiben auf dem Ge
 
 - Xcode 15 oder neuer
 - iOS 17 oder neuer
-- Keine externen Abhängigkeiten, nur Apple-Frameworks (SwiftUI, MapKit, CoreLocation, Charts, AppIntents)
+- Keine externen Abhängigkeiten, nur Apple-Frameworks (SwiftUI, MapKit, CoreLocation, Charts, AppIntents, ActivityKit, WidgetKit)
 
 ## Selbst bauen
 
 1. Repository klonen und `GPSTracker.xcodeproj` in Xcode öffnen.
-2. Unter *Signing & Capabilities* dein eigenes **Team** auswählen.
-3. Die **Bundle Identifier** auf eine eigene ID ändern (z. B. `com.deinname.GPSTracker`).
+2. Unter *Signing & Capabilities* für beide Targets (`GPSTracker` und `TourspurWidgets`) dein eigenes **Team** auswählen.
+3. Die **Bundle Identifier** auf eigene IDs ändern, z. B. `com.deinname.GPSTracker` für die App und `com.deinname.GPSTracker.Widgets` für die Widget-Erweiterung. Die ID der Erweiterung muss mit der ID der App beginnen.
 4. Auf einem iPhone ausführen. Für Hintergrund-Aufzeichnung die Standort-Berechtigung „Immer“ erteilen.
 
 ## WordPress-Plugin
@@ -44,9 +47,12 @@ Details in [`wordpress-plugin/README.md`](wordpress-plugin/README.md).
 ```
 GPSTracker/
 ├── Models/      Track und TrackPoint
-├── Services/    LocationManager, TrackStore (Speichern/Sync), GPXExporter
+├── Services/    LocationManager, TrackStore (Speichern/Sync), GPX-Import und -Export,
+│                Fotos verorten, Live-Aktivität, WordPress
 ├── Views/       SwiftUI-Ansichten (Live, Liste, Detail, Karte, Diagramme)
-└── Intents/     Kurzbefehle/Siri (AppIntents)
+├── Intents/     Kurzbefehle/Siri (AppIntents)
+└── Shared/      Daten und Knöpfe der Live-Aktivität (App und Widget)
+TourspurWidgets/ Widget-Erweiterung: Live-Aktivität für Sperrbildschirm und Dynamic Island
 wordpress-plugin/ WordPress-Plugin „Fotospur“ für die Veröffentlichung
 website/         Produkt- und Datenschutzseite
 ```

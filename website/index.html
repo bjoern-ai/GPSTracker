@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tourspur</title>
-<meta name="description" content="Tourspur für das iPhone: Strecken live aufzeichnen, als GPX exportieren, über iCloud Drive synchronisieren, per Siri starten und mit Fotos auf der eigenen WordPress-Website veröffentlichen.">
+<meta name="description" content="Tourspur für das iPhone: Strecken live aufzeichnen und auf dem Sperrbildschirm verfolgen, GPX importieren und exportieren, über iCloud Drive synchronisieren, per Siri starten und mit Fotos auf der eigenen WordPress-Website veröffentlichen.">
 <link rel="icon" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <style>
@@ -122,7 +122,7 @@
       <p class="lead">Tourspur zeichnet deine Wanderungen, Radtouren und Fahrten auf, zeigt Tempo, Höhe und Distanz live an und speichert alles als Standard-GPX, das du überall weiterverwenden kannst.</p>
       <a class="store" href="https://apps.apple.com/de/app/tourspur/id6821229337">Kostenlos im App Store laden</a>
       <ul class="pills">
-        <li>Live-Karte</li><li>Höhenprofil</li><li>GPX 1.1</li><li>iCloud Drive</li><li>Siri &amp; Kurzbefehle</li><li>WordPress</li>
+        <li>Live-Karte</li><li>Live-Aktivität</li><li>Höhenprofil</li><li>GPX-Import &amp; -Export</li><li>Fotos auf der Karte</li><li>iCloud Drive</li><li>Siri &amp; Kurzbefehle</li><li>WordPress</li>
       </ul>
     </div>
 
@@ -161,6 +161,11 @@
           <p>Die Strecke wächst auf der Karte mit. Geschwindigkeit, Höhe, Distanz und Dauer laufen sekundengenau mit, dazu ein Höhenprofil. Aufnahmen lassen sich pausieren und laufen auch im Hintergrund weiter.</p>
         </article>
         <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 2h8a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3Zm0 2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H8Zm1 9h6a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1Z"/></svg></div>
+          <h3>Live-Aktivität</h3>
+          <p>Dauer, Distanz und Tempo stehen während der Aufnahme auf dem Sperrbildschirm und in der Dynamic Island. Pausieren, Fortsetzen und Beenden geht direkt von dort, ohne das iPhone zu entsperren, praktisch auf dem Rad oder Roller.</p>
+        </article>
+        <article class="card">
           <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h2v2H4V5Zm4 0h12v2H8V5ZM4 11h2v2H4v-2Zm4 0h12v2H8v-2Zm-4 6h2v2H4v-2Zm4 0h12v2H8v-2Z"/></svg></div>
           <h3>Streckenliste</h3>
           <p>Jede gespeicherte Aufzeichnung bekommt einen Namen und landet in der Liste. In der Detailansicht siehst du Karte, Kennzahlen und Höhenprofil der Tour.</p>
@@ -169,6 +174,11 @@
           <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 7 8h3.5v6h3V8H17l-5-5Zm-7 13v4h14v-4h-2v2H7v-2H5Z"/></svg></div>
           <h3>GPX-Export</h3>
           <p>Mit einem Tippen wird die Strecke als GPX 1.1 mit Koordinaten, Höhe und Zeitstempeln exportiert und lässt sich per AirDrop, Mail oder in Komoot, Strava und Co. teilen.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15 7 10h3.5V4h3v6H17l-5 5Zm-7 1v4h14v-4h-2v2H7v-2H5Z"/></svg></div>
+          <h3>GPX-Import</h3>
+          <p>Touren von anderen oder geplante Routen aus der Dateien-App laden oder über „Öffnen in“ an Tourspur geben. Importierte Strecken zeigen Karte, Kennzahlen und Höhenprofil und lassen sich wie eigene exportieren und veröffentlichen.</p>
         </article>
         <article class="card">
           <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.5 10.1A6.5 6.5 0 0 0 6 8.4 5 5 0 0 0 6.5 18.5h11.8a4.2 4.2 0 0 0 .2-8.4Z"/></svg></div>
@@ -182,8 +192,13 @@
         </article>
         <article class="card">
           <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H4Zm0 12 4.5-6 3.5 4.5 2.5-3L20 17H4Zm12-8.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/></svg></div>
+          <h3>Fotos auf der Karte</h3>
+          <p>Wähle zu einer Strecke Fotos aus und sieh sie als kleine Vorschaubilder dort auf der Karte, wo sie aufgenommen wurden. Fotos ohne Ortsangabe werden über die Aufnahmezeit auf der Strecke platziert, mehrere Fotos von derselben Stelle teilen sich einen Punkt mit Galerie.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 6h-3a15.6 15.6 0 0 0-1.4-3.6A8 8 0 0 1 18.9 8ZM12 4c.8 1.2 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.8 1.9-4ZM4.3 14a8.2 8.2 0 0 1 0-4h3.4a16.5 16.5 0 0 0 0 4H4.3Zm.8 2h3a15.6 15.6 0 0 0 1.4 3.6A8 8 0 0 1 5.1 16Zm3-8h-3a8 8 0 0 1 4.4-3.6A15.6 15.6 0 0 0 8.1 8ZM12 20c-.8-1.2-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.8-1.9 4Zm2.3-6H9.7a14.7 14.7 0 0 1 0-4h4.6a14.7 14.7 0 0 1 0 4Zm.2 5.6c.6-1.1 1.1-2.3 1.4-3.6h3a8 8 0 0 1-4.4 3.6Zm1.8-5.6a16.5 16.5 0 0 0 0-4h3.4a8.2 8.2 0 0 1 0 4h-3.4Z"/></svg></div>
           <h3>Auf deiner Website</h3>
-          <p>Wähle zu einer Strecke Fotos aus und veröffentliche beides als Beitragsentwurf auf deiner WordPress-Website. Das kostenlose Plugin „Fotospur“ zeichnet die Strecke und setzt jedes Foto an die Stelle, an der es aufgenommen wurde. <a href="https://github.com/bjoern-ai/GPSTracker/tree/main/wordpress-plugin">Plugin auf GitHub</a></p>
+          <p>Wähle zu einer Strecke Fotos aus und veröffentliche beides als Beitragsentwurf auf deiner WordPress-Website. Das kostenlose Plugin „Fotospur“ zeichnet die Strecke und setzt jedes Foto an die Stelle, an der es aufgenommen wurde, auch mehrere Fotos von derselben Stelle. <a href="https://github.com/bjoern-ai/GPSTracker/tree/main/wordpress-plugin">Plugin auf GitHub</a></p>
         </article>
       </div>
     </div>

@@ -23,6 +23,7 @@ Hinweis für Nutzer der ersten Version (rollermomente-fotospur): erst dieses Plu
 
 Der Block liest Aufnahmezeit und Ort aus den Fotos und setzt sie an die passende Stelle der Strecke.
 Fotos ohne diese Angaben werden in der gewählten Reihenfolge verteilt; ein Hinweis darauf ist nur für angemeldete Redakteure sichtbar.
+Mehrere Fotos von derselben Stelle teilen sich einen Punkt. Beim Abspielen werden sie nacheinander gezeigt, mit den Pfeilen im Foto lässt sich von Hand blättern.
 Die Strecke wird ohne Kartendienst gezeichnet, es werden keine Daten an Dritte übertragen.
 
 == Änderungen ==

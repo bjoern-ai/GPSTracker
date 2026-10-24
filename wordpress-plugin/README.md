@@ -27,6 +27,8 @@ Du hast noch die erste Version (`rollermomente-fotospur`) installiert? Erst das 
 
 Fotos ohne Aufnahmezeit und Ort werden gleichmäßig in der gewählten Reihenfolge auf der Strecke verteilt; ein Hinweis darauf ist nur für angemeldete Redakteure sichtbar.
 
+Mehrere Fotos von derselben Stelle teilen sich einen Punkt auf der Strecke (z. B. „3–5“). Beim Abspielen hält die Fotospur dort an und zeigt die Fotos nacheinander, mit den Pfeilen im Foto lässt sich auch von Hand blättern.
+
 ## Datenschutz
 
 Die App sendet die Daten direkt vom iPhone an die eingetragene Website (WordPress-REST-API über https). Das Anwendungspasswort wird im Schlüsselbund des iPhones gespeichert und lässt sich in WordPress jederzeit widerrufen.
