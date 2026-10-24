@@ -6,6 +6,21 @@
 	<string>de</string>
 	<key>CFBundleDisplayName</key>
 	<string>Tourspur</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>GPX-Datei</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.topografix.gpx</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -24,12 +39,16 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Tourspur kann deine Strecke auch aufzeichnen, während die App im Hintergrund läuft, z. B. wenn dein Bildschirm aus ist.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Tourspur kann deine Strecke auch aufzeichnen, während die App im Hintergrund läuft, z. B. wenn dein Bildschirm aus ist.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Tourspur benötigt deinen Standort, um deine Strecke live auf der Karte anzuzeigen und aufzuzeichnen.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -59,6 +78,30 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>GPX-Datei</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.topografix.gpx</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>gpx</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/gpx+xml</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

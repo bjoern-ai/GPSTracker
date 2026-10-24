@@ -21,9 +21,10 @@
 .fotospur .fs-route { fill: none; stroke: var(--fs-accent); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
 .fotospur .fs-start { fill: var(--fs-ink); }
 .fotospur .fs-pin { cursor: pointer; outline: none; }
-.fotospur .fs-pin circle { fill: var(--fs-card); stroke: var(--fs-accent); stroke-width: 2.5; transition: fill .2s; }
+.fotospur .fs-pin circle, .fotospur .fs-pin rect { fill: var(--fs-card); stroke: var(--fs-accent); stroke-width: 2.5; transition: fill .2s; }
 .fotospur .fs-pin text { font: 500 10px/1 "IBM Plex Mono", monospace; fill: var(--fs-ink); }
-.fotospur .fs-pin.is-active circle, .fotospur .fs-pin:focus-visible circle { fill: var(--fs-accent); }
+.fotospur .fs-pin.is-active circle, .fotospur .fs-pin:focus-visible circle,
+.fotospur .fs-pin.is-active rect, .fotospur .fs-pin:focus-visible rect { fill: var(--fs-accent); }
 .fotospur .fs-pin.is-active text, .fotospur .fs-pin:focus-visible text { fill: #fff; }
 .fotospur .fs-rider circle { fill: var(--fs-accent); }
 .fotospur .fs-rider .fs-rider-dot { fill: #fff; }
@@ -32,6 +33,11 @@
 .fotospur .fs-photo::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(0,0,0,.65)); pointer-events: none; }
 .fotospur .fs-cap { position: absolute; left: 12px; right: 12px; bottom: 10px; z-index: 1; color: #fff; font-size: 12px; line-height: 1.4; }
 .fotospur .fs-cap b { display: block; font: 600 17px/1.25 "Source Sans 3", system-ui, sans-serif; }
+.fotospur .fs-nav { position: absolute; top: 10px; right: 10px; z-index: 1; display: flex; gap: 6px; }
+.fotospur .fs-nav[hidden] { display: none; }
+.fotospur .fs-nav-btn { width: 34px; height: 34px; border: 0; border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; font: 500 20px/1 "IBM Plex Mono", monospace; cursor: pointer; }
+.fotospur .fs-nav-btn:disabled { opacity: .35; cursor: default; }
+.fotospur .fs-nav-btn:focus-visible { outline: 3px solid var(--fs-accent); outline-offset: 2px; }
 .fotospur .fs-prof { display: block; width: 100%; height: 84px; cursor: pointer; }
 .fotospur .fs-prof-area { fill: var(--fs-accent); fill-opacity: .12; }
 .fotospur .fs-prof-line { fill: none; stroke: var(--fs-accent); stroke-width: 1.5; }

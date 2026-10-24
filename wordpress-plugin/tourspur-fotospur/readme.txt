@@ -1,7 +1,7 @@
 === Fotospur ===
 Requires at least: 6.5
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: MIT
 
 Block „Fotospur“: Fotos einer Tour an der Stelle der Tourspur-Strecke, an der sie aufgenommen wurden.
@@ -26,6 +26,9 @@ Fotos ohne diese Angaben werden in der gewählten Reihenfolge verteilt; ein Hinw
 Die Strecke wird ohne Kartendienst gezeichnet, es werden keine Daten an Dritte übertragen.
 
 == Änderungen ==
+
+= 1.1.1 =
+* Mehrere Fotos von derselben Stelle teilen sich einen Punkt auf der Karte (z. B. „3–5“). Beim Abspielen werden sie nacheinander gezeigt, von Hand lässt sich mit ‹ › blättern.
 
 = 1.1.0 =
 * Block heißt jetzt „tourspur/fotospur“. Der frühere Name „rollermomente/fotospur“ wird für bestehende Beiträge weiter unterstützt.

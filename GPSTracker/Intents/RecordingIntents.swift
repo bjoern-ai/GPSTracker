@@ -47,7 +47,7 @@ struct ToggleRecordingIntent: AppIntent {
 }
 
 @MainActor
-private enum RecordingControl {
+enum RecordingControl {
     /// Stops the recording and saves the track. Returns the text to show or speak.
     static func stop() -> String {
         let locationManager = LocationManager.shared

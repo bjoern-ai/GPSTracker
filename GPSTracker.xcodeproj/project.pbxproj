@@ -28,7 +28,41 @@
 		C730909CEC400F7A7118063F /* TrackStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A8E16DE222F12954C5F9C0 /* TrackStore.swift */; };
 		CB93A28F18004D33554EA6BD /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED9B65058112A8EF436E1CC /* TrackPoint.swift */; };
 		F22F1F8625936F1A63A2DE9F /* TrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1034EAC4C09461E9AE945CE /* TrackMapView.swift */; };
+		11A0000000000000000000A2 /* RecordingActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000000A1 /* RecordingActivityAttributes.swift */; };
+		11A0000000000000000000A3 /* RecordingActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000000A1 /* RecordingActivityAttributes.swift */; };
+		11A0000000000000000000B2 /* RecordingActivityIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000000B1 /* RecordingActivityIntents.swift */; };
+		11A0000000000000000000B3 /* RecordingActivityIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000000B1 /* RecordingActivityIntents.swift */; };
+		11A0000000000000000000C2 /* LiveActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000000C1 /* LiveActivityController.swift */; };
+		11A0000000000000000000D2 /* TourspurWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000000D1 /* TourspurWidgetsBundle.swift */; };
+		11A0000000000000000000E2 /* RecordingLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000000E1 /* RecordingLiveActivity.swift */; };
+		11A00000000000000000A0A2 /* TourspurWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 11A00000000000000000A0A1 /* TourspurWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		11A0000000000000000001A2 /* GPXImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000001A1 /* GPXImporter.swift */; };
+		11A0000000000000000002A2 /* PhotoLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000002A1 /* PhotoLocator.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		11A00000000000000000A0C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11A00000000000000000A0C1;
+			remoteInfo = TourspurWidgets;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		11A00000000000000000A0C5 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				11A00000000000000000A0A2 /* TourspurWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		11C5DFF8DE08754582185ED5 /* ProfileChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChartView.swift; sourceTree = "<group>"; };
@@ -54,10 +88,26 @@
 		DA1D4596F45E0340C7B9D7E4 /* SavedTracksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTracksView.swift; sourceTree = "<group>"; };
 		F49933B2A32D31EFCFB077CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		11A0000000000000000000A1 /* RecordingActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingActivityAttributes.swift; sourceTree = "<group>"; };
+		11A0000000000000000000B1 /* RecordingActivityIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingActivityIntents.swift; sourceTree = "<group>"; };
+		11A0000000000000000000C1 /* LiveActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityController.swift; sourceTree = "<group>"; };
+		11A0000000000000000000D1 /* TourspurWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourspurWidgetsBundle.swift; sourceTree = "<group>"; };
+		11A0000000000000000000E1 /* RecordingLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingLiveActivity.swift; sourceTree = "<group>"; };
+		11A0000000000000000000F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11A00000000000000000A0A1 /* TourspurWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TourspurWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		11A0000000000000000001A1 /* GPXImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXImporter.swift; sourceTree = "<group>"; };
+		11A0000000000000000002A1 /* PhotoLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLocator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6BC9136C2E1B992EF374A2EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11A00000000000000000A0C3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -71,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				A3661A396C1E6F43E1304F85 /* GPSTracker.app */,
+				11A00000000000000000A0A1 /* TourspurWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				CE882751F8B3EE4485706ED4 /* GPSTracker */,
+				11A00000000000000000A0B2 /* TourspurWidgets */,
 				1BADDC1D73C1A20F347483E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,9 +164,12 @@
 				34DED8ED8269590C496DC6EC /* LocationManager.swift */,
 				A0A8E16DE222F12954C5F9C0 /* TrackStore.swift */,
 				2D1C74544A27127C9C26DD54 /* GPXExporter.swift */,
+				11A0000000000000000001A1 /* GPXImporter.swift */,
 				5E1F0A01B2C3D4E5F6A7B804 /* WordPressClient.swift */,
 				5E1F0A01B2C3D4E5F6A7B808 /* PhotoConverter.swift */,
+				11A0000000000000000002A1 /* PhotoLocator.swift */,
 				5E1F0A01B2C3D4E5F6A7B802 /* KeychainHelper.swift */,
+				11A0000000000000000000C1 /* LiveActivityController.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -127,6 +182,7 @@
 				E7651EE138212D3A5C27ABA0 /* Models */,
 				B295F7D1F3A53E369290BC6A /* Services */,
 				A1B2C3D4E5F60718293A4B5E /* Intents */,
+				11A00000000000000000A0B1 /* Shared */,
 				9CECDDFA5EF2AE0232F90708 /* Views */,
 				FCB8953AE57039F8C975994A /* Assets.xcassets */,
 				D1D74ED74759DFE7FCFB113A /* Info.plist */,
@@ -144,6 +200,25 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		11A00000000000000000A0B1 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				11A0000000000000000000A1 /* RecordingActivityAttributes.swift */,
+				11A0000000000000000000B1 /* RecordingActivityIntents.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		11A00000000000000000A0B2 /* TourspurWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				11A0000000000000000000D1 /* TourspurWidgetsBundle.swift */,
+				11A0000000000000000000E1 /* RecordingLiveActivity.swift */,
+				11A0000000000000000000F1 /* Info.plist */,
+			);
+			path = TourspurWidgets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -154,15 +229,34 @@
 				F680599402C0D80E245DE801 /* Sources */,
 				6BC9136C2E1B992EF374A2EA /* Frameworks */,
 				781C774F390DF12CD292A30B /* Resources */,
+				11A00000000000000000A0C5 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				11A00000000000000000A0C7 /* PBXTargetDependency */,
 			);
 			name = GPSTracker;
 			productName = GPSTracker;
 			productReference = A3661A396C1E6F43E1304F85 /* GPSTracker.app */;
 			productType = "com.apple.product-type.application";
+		};
+		11A00000000000000000A0C1 /* TourspurWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11A00000000000000000A0D1 /* Build configuration list for PBXNativeTarget "TourspurWidgets" */;
+			buildPhases = (
+				11A00000000000000000A0C2 /* Sources */,
+				11A00000000000000000A0C3 /* Frameworks */,
+				11A00000000000000000A0C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TourspurWidgets;
+			productName = TourspurWidgets;
+			productReference = 11A00000000000000000A0A1 /* TourspurWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -176,6 +270,9 @@
 				TargetAttributes = {
 					88F56D6A2F90F79D5F551E46 = {
 						CreatedOnToolsVersion = 16.0;
+					};
+					11A00000000000000000A0C1 = {
+						CreatedOnToolsVersion = 27.1;
 					};
 				};
 			};
@@ -193,6 +290,7 @@
 			projectRoot = "";
 			targets = (
 				88F56D6A2F90F79D5F551E46 /* GPSTracker */,
+				11A00000000000000000A0C1 /* TourspurWidgets */,
 			);
 		};
 /* End PBXProject section */
@@ -204,6 +302,13 @@
 			files = (
 				8875112C0BBF57B4D1A26581 /* Assets.xcassets in Resources */,
 				B7E1A0C2D3F4051627384951 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11A00000000000000000A0C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,10 +338,34 @@
 				5E1F0A01B2C3D4E5F6A7B803 /* WordPressClient.swift in Sources */,
 				5E1F0A01B2C3D4E5F6A7B807 /* PhotoConverter.swift in Sources */,
 				5E1F0A01B2C3D4E5F6A7B801 /* KeychainHelper.swift in Sources */,
+				11A0000000000000000000A2 /* RecordingActivityAttributes.swift in Sources */,
+				11A0000000000000000000B2 /* RecordingActivityIntents.swift in Sources */,
+				11A0000000000000000000C2 /* LiveActivityController.swift in Sources */,
+				11A0000000000000000001A2 /* GPXImporter.swift in Sources */,
+				11A0000000000000000002A2 /* PhotoLocator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11A00000000000000000A0C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11A0000000000000000000D2 /* TourspurWidgetsBundle.swift in Sources */,
+				11A0000000000000000000E2 /* RecordingLiveActivity.swift in Sources */,
+				11A0000000000000000000A3 /* RecordingActivityAttributes.swift in Sources */,
+				11A0000000000000000000B3 /* RecordingActivityIntents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		11A00000000000000000A0C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11A00000000000000000A0C1 /* TourspurWidgets */;
+			targetProxy = 11A00000000000000000A0C6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6AAB59A3C0BAF710B2045EA5 /* Debug */ = {
@@ -244,7 +373,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P2M7JR3228;
 				ENABLE_PREVIEWS = YES;
@@ -256,7 +385,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bjoernczibulla.GPSTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -270,7 +399,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -281,7 +410,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bjoernczibulla.GPSTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -411,6 +540,56 @@
 			};
 			name = Debug;
 		};
+		11A00000000000000000A0D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = P2M7JR3228;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TourspurWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Tourspur;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bjoernczibulla.GPSTracker.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) WIDGET_EXTENSION";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		11A00000000000000000A0D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = P2M7JR3228;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TourspurWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Tourspur;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bjoernczibulla.GPSTracker.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) WIDGET_EXTENSION";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -428,6 +607,15 @@
 			buildConfigurations = (
 				6AAB59A3C0BAF710B2045EA5 /* Debug */,
 				6DDE1771F95A650A2C7249BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11A00000000000000000A0D1 /* Build configuration list for PBXNativeTarget "TourspurWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11A00000000000000000A0D2 /* Debug */,
+				11A00000000000000000A0D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

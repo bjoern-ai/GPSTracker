@@ -20,6 +20,9 @@ struct TrackDetailView: View {
     @State private var publishError: String?
     @State private var publishStatus = "Wird hochgeladen …"
     @State private var selectedPhotos: [PhotosPickerItem] = []
+    @State private var photoPins: [PhotoPin] = []
+    @State private var photosWithoutLocation = 0
+    @State private var selectedPhotoGroup: PhotoGroupSelection?
     @Environment(\.openURL) private var openURL
     @AppStorage(WordPressClient.siteURLKey) private var wordPressSite = ""
     @AppStorage(WordPressClient.usernameKey) private var wordPressUser = ""
@@ -27,8 +30,10 @@ struct TrackDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                TrackMapView(points: track.points, isLive: false)
-                    .frame(height: 250)
+                TrackMapView(points: track.points, isLive: false, photoPins: photoPins) { pins in
+                    selectedPhotoGroup = PhotoGroupSelection(pins: pins)
+                }
+                .frame(height: 250)
 
                 statsSection
 
@@ -48,12 +53,20 @@ struct TrackDetailView: View {
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
 
+                photoSection
+
                 publishSection
             }
             .padding(.vertical)
         }
         .navigationTitle(track.name)
         .navigationBarTitleDisplayMode(.inline)
+        .task(id: selectedPhotos) {
+            await loadPhotoPins()
+        }
+        .sheet(item: $selectedPhotoGroup) { selection in
+            PhotoGallery(pins: selection.pins)
+        }
         .sheet(item: $exportFile) { file in
             ShareSheet(items: [file.url])
                 .presentationDetents([.medium, .large])
@@ -91,9 +104,10 @@ struct TrackDetailView: View {
         }
     }
 
-    private var publishControls: some View {
+    /// Selected photos appear on the map and are uploaded when publishing.
+    private var photoSection: some View {
         GroupBox {
-            VStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     PhotosPicker(selection: $selectedPhotos, selectionBehavior: .ordered, matching: .images) {
                         Label(photoSelectionText, systemImage: "photo.on.rectangle.angled")
@@ -107,6 +121,22 @@ struct TrackDetailView: View {
                 }
                 .disabled(isPublishing)
 
+                if photosWithoutLocation > 0 {
+                    Label(photosWithoutLocation == 1 ? "1 Foto ohne Ortsangabe" : "\(photosWithoutLocation) Fotos ohne Ortsangabe",
+                          systemImage: "location.slash")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        } label: {
+            Text("Fotos")
+        }
+        .padding(.horizontal)
+    }
+
+    private var publishControls: some View {
+        GroupBox {
+            VStack(spacing: 12) {
                 Button {
                     publish()
                 } label: {
@@ -131,10 +161,33 @@ struct TrackDetailView: View {
 
     private var photoSelectionText: String {
         switch selectedPhotos.count {
-        case 0: return "Fotos auswählen (optional)"
+        case 0: return "Fotos auswählen"
         case 1: return "1 Foto ausgewählt"
         default: return "\(selectedPhotos.count) Fotos ausgewählt"
         }
+    }
+
+    /// Places the selected photos on the map. Runs again whenever the selection changes.
+    private func loadPhotoPins() async {
+        let items = selectedPhotos
+        let track = track
+        var pins: [PhotoPin] = []
+        var withoutLocation = 0
+        for (index, item) in items.enumerated() {
+            guard let data = try? await item.loadTransferable(type: Data.self) else {
+                withoutLocation += 1
+                continue
+            }
+            if Task.isCancelled { return }
+            if let pin = await Task.detached(operation: { PhotoLocator.pin(id: index, data: data, track: track) }).value {
+                pins.append(pin)
+            } else {
+                withoutLocation += 1
+            }
+        }
+        if Task.isCancelled { return }
+        photoPins = pins
+        photosWithoutLocation = withoutLocation
     }
 
     private enum PhotoError: LocalizedError {
@@ -208,5 +261,82 @@ struct TrackDetailView: View {
         let m = (duration % 3600) / 60
         let s = duration % 60
         return String(format: "%02d:%02d:%02d", h, m, s)
+    }
+}
+
+private struct PhotoGroupSelection: Identifiable {
+    let pins: [PhotoPin]
+    var id: Int { pins[0].id }
+}
+
+/// Large view of the photos behind a map marker; swipe for more than one.
+private struct PhotoGallery: View {
+    let pins: [PhotoPin]
+    @State private var currentID: Int
+    @Environment(\.dismiss) private var dismiss
+
+    init(pins: [PhotoPin]) {
+        self.pins = pins
+        _currentID = State(initialValue: pins.first?.id ?? 0)
+    }
+
+    var body: some View {
+        NavigationStack {
+            TabView(selection: $currentID) {
+                ForEach(pins) { pin in
+                    PhotoPage(pin: pin)
+                        .tag(pin.id)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: pins.count > 1 ? .always : .never))
+            .indexViewStyle(.page(backgroundDisplayMode: .always))
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Fertig") { dismiss() }
+                }
+            }
+        }
+    }
+
+    private var title: String {
+        guard pins.count > 1, let index = pins.firstIndex(where: { $0.id == currentID }) else { return "Foto" }
+        return "Foto \(index + 1) von \(pins.count)"
+    }
+}
+
+private struct PhotoPage: View {
+    let pin: PhotoPin
+    @State private var image: UIImage?
+
+    var body: some View {
+        VStack(spacing: 12) {
+            Image(uiImage: image ?? pin.thumbnail)
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            if let caption {
+                Text(caption)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding()
+        .padding(.bottom, 32)
+        .task {
+            let data = pin.data
+            image = await Task.detached { PhotoLocator.previewImage(from: data) }.value
+        }
+    }
+
+    private var caption: String? {
+        let date = pin.date?.formatted(.dateTime.day().month().year().hour().minute().locale(Locale(identifier: "de_DE")))
+        switch (date, pin.isEstimated) {
+        case (let date?, true): return "\(date) · Position aus der Aufnahmezeit geschätzt"
+        case (let date?, false): return date
+        case (nil, true): return "Position aus der Aufnahmezeit geschätzt"
+        case (nil, false): return nil
+        }
     }
 }
