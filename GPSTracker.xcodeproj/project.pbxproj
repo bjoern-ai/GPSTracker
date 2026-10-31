@@ -38,6 +38,7 @@
 		11A00000000000000000A0A2 /* TourspurWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 11A00000000000000000A0A1 /* TourspurWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		11A0000000000000000001A2 /* GPXImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000001A1 /* GPXImporter.swift */; };
 		11A0000000000000000002A2 /* PhotoLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000002A1 /* PhotoLocator.swift */; };
+		11A0000000000000000003A2 /* RecordingSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000003A1 /* RecordingSmallView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		11A00000000000000000A0A1 /* TourspurWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TourspurWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A0000000000000000001A1 /* GPXImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXImporter.swift; sourceTree = "<group>"; };
 		11A0000000000000000002A1 /* PhotoLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLocator.swift; sourceTree = "<group>"; };
+		11A0000000000000000003A1 /* RecordingSmallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingSmallView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +216,7 @@
 			children = (
 				11A0000000000000000000D1 /* TourspurWidgetsBundle.swift */,
 				11A0000000000000000000E1 /* RecordingLiveActivity.swift */,
+				11A0000000000000000003A1 /* RecordingSmallView.swift */,
 				11A0000000000000000000F1 /* Info.plist */,
 			);
 			path = TourspurWidgets;
@@ -352,6 +355,7 @@
 			files = (
 				11A0000000000000000000D2 /* TourspurWidgetsBundle.swift in Sources */,
 				11A0000000000000000000E2 /* RecordingLiveActivity.swift in Sources */,
+				11A0000000000000000003A2 /* RecordingSmallView.swift in Sources */,
 				11A0000000000000000000A3 /* RecordingActivityAttributes.swift in Sources */,
 				11A0000000000000000000B3 /* RecordingActivityIntents.swift in Sources */,
 			);

@@ -6,9 +6,12 @@ import WidgetKit
 /// Lock screen banner and Dynamic Island for a running recording.
 struct RecordingLiveActivity: Widget {
     var body: some WidgetConfiguration {
+        configuration.withSmallLayout()
+    }
+
+    private var configuration: ActivityConfiguration<RecordingActivityAttributes> {
         ActivityConfiguration(for: RecordingActivityAttributes.self) { context in
-            LockScreenView(context: context)
-                .padding()
+            ActivityContentView(context: context)
                 .activityBackgroundTint(Color.black.opacity(0.6))
                 .activitySystemActionForegroundColor(.white)
         } dynamicIsland: { context in
@@ -63,6 +66,48 @@ struct RecordingLiveActivity: Widget {
 }
 
 private typealias Context = ActivityViewContext<RecordingActivityAttributes>
+
+private extension WidgetConfiguration {
+    /// Adds the compact layout, which iOS 18 and later use where there is
+    /// little room: in CarPlay and in the Apple Watch Smart Stack. Without it,
+    /// CarPlay only shows the Dynamic Island's icon and time.
+    func withSmallLayout() -> some WidgetConfiguration {
+        if #available(iOS 18.0, *) {
+            return supplementalActivityFamilies([.small])
+        } else {
+            return self
+        }
+    }
+}
+
+private struct ActivityContentView: View {
+    let context: Context
+
+    var body: some View {
+        if #available(iOS 18.0, *) {
+            FamilyAdaptiveView(context: context)
+        } else {
+            LockScreenView(context: context)
+                .padding()
+        }
+    }
+}
+
+@available(iOS 18.0, *)
+private struct FamilyAdaptiveView: View {
+    let context: Context
+    @Environment(\.activityFamily) private var family
+
+    var body: some View {
+        if family == .small {
+            RecordingSmallView(attributes: context.attributes, state: context.state)
+                .padding(12)
+        } else {
+            LockScreenView(context: context)
+                .padding()
+        }
+    }
+}
 
 private struct LockScreenView: View {
     let context: Context
