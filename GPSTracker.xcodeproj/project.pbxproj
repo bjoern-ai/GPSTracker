@@ -39,6 +39,7 @@
 		11A0000000000000000001A2 /* GPXImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000001A1 /* GPXImporter.swift */; };
 		11A0000000000000000002A2 /* PhotoLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000002A1 /* PhotoLocator.swift */; };
 		11A0000000000000000003A2 /* RecordingSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000003A1 /* RecordingSmallView.swift */; };
+		11A0000000000000000004A2 /* CarPlaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0000000000000000004A1 /* CarPlaySceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		11A0000000000000000001A1 /* GPXImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXImporter.swift; sourceTree = "<group>"; };
 		11A0000000000000000002A1 /* PhotoLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLocator.swift; sourceTree = "<group>"; };
 		11A0000000000000000003A1 /* RecordingSmallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingSmallView.swift; sourceTree = "<group>"; };
+		11A0000000000000000004A1 /* CarPlaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 				E7651EE138212D3A5C27ABA0 /* Models */,
 				B295F7D1F3A53E369290BC6A /* Services */,
 				A1B2C3D4E5F60718293A4B5E /* Intents */,
+				11A0000000000000000004A3 /* CarPlay */,
 				11A00000000000000000A0B1 /* Shared */,
 				9CECDDFA5EF2AE0232F90708 /* Views */,
 				FCB8953AE57039F8C975994A /* Assets.xcassets */,
@@ -220,6 +223,14 @@
 				11A0000000000000000000F1 /* Info.plist */,
 			);
 			path = TourspurWidgets;
+			sourceTree = "<group>";
+		};
+		11A0000000000000000004A3 /* CarPlay */ = {
+			isa = PBXGroup;
+			children = (
+				11A0000000000000000004A1 /* CarPlaySceneDelegate.swift */,
+			);
+			path = CarPlay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +357,7 @@
 				11A0000000000000000000C2 /* LiveActivityController.swift in Sources */,
 				11A0000000000000000001A2 /* GPXImporter.swift in Sources */,
 				11A0000000000000000002A2 /* PhotoLocator.swift in Sources */,
+				11A0000000000000000004A2 /* CarPlaySceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
