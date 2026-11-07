@@ -101,6 +101,7 @@
 		11A0000000000000000002A1 /* PhotoLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLocator.swift; sourceTree = "<group>"; };
 		11A0000000000000000003A1 /* RecordingSmallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingSmallView.swift; sourceTree = "<group>"; };
 		11A0000000000000000004A1 /* CarPlaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegate.swift; sourceTree = "<group>"; };
+		11A0000000000000000005A1 /* GPSTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GPSTracker.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +192,7 @@
 				9CECDDFA5EF2AE0232F90708 /* Views */,
 				FCB8953AE57039F8C975994A /* Assets.xcassets */,
 				D1D74ED74759DFE7FCFB113A /* Info.plist */,
+				11A0000000000000000005A1 /* GPSTracker.entitlements */,
 				B7E1A0C2D3F4051627384950 /* PrivacyInfo.xcprivacy */,
 			);
 			path = GPSTracker;
@@ -389,6 +391,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GPSTracker/GPSTracker.entitlements;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = P2M7JR3228;
@@ -415,6 +418,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GPSTracker/GPSTracker.entitlements;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
